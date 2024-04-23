@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TrainingStore.Application.Courses.AddCourse;
+using TrainingStore.Application.Courses.GetCourse;
 using TrainingStore.Domain.Abstractions;
 
 namespace TrainingStore.Api.Controllers.Courses
@@ -14,6 +15,16 @@ namespace TrainingStore.Api.Controllers.Courses
 		public CoursesController(ISender sender)
 		{
 			_sender = sender;
+		}
+
+		[HttpGet("{id:guid}")]
+		public async Task<IActionResult> GetCourseById(Guid id, CancellationToken cancellationToken)
+		{
+			var query = new GetCourseByIdQuery(id);
+
+			Result<CourseResponse> response = await _sender.Send(query, cancellationToken);
+
+			return response.IsSuccess ? Ok(response.Value) : NotFound(response.Error);
 		}
 
 		[HttpPost]

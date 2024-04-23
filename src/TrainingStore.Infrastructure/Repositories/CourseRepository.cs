@@ -2,10 +2,10 @@
 
 namespace TrainingStore.Infrastructure.Repositories;
 
-internal sealed class CourseRepository : Repository<Course>, ICourseRepository
+internal sealed class CourseRepository : GenericRepository<Course>, ICourseRepository
 {
-	public CourseRepository(ApplicationDbContext dbContext)
-		: base(dbContext)
-	{
-	}
+    public CourseRepository(TrainingDbContext dbContext)
+        : base(dbContext)
+    {
+    }
 }

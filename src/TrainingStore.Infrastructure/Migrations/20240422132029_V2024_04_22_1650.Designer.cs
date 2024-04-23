@@ -11,7 +11,7 @@ using TrainingStore.Infrastructure;
 
 namespace TrainingStore.Infrastructure.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(TrainingDbContext))]
     [Migration("20240422132029_V2024_04_22_1650")]
     partial class V2024_04_22_1650
     {

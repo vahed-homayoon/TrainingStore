@@ -4,24 +4,30 @@ namespace TrainingStore.Domain.Courses;
 
 public sealed class Course : BaseEntity
 {
-    private Course(
-        Guid id,
-        string name,
-        string description
-        )
-        : base(id)
-    {
-        Name = name;
-        Description = description;
-    }
+	private Course(
+		string name,
+		string description
+		)
+	{
+		Name = name;
+		Description = description;
+	}
 
-    public string Name { get; private set; }
-    public string Description { get; private set; }
+	public int Id { get; private set; }
+	public string Name { get; private set; }
+	public string Description { get; private set; }
 
-    public static Course Create(string name, string description)
-    {
-        var course = new Course(Guid.NewGuid(), name, description);
+	public static Course Create(string name, string description)
+	{
+		var course = new Course(name, description);
 
-        return course;
-    }
+		return course;
+	}
+
+	public void Edit(int id, string name, string description)
+	{
+		Id = id;
+		Name = name;
+		Description = description;
+	}
 }

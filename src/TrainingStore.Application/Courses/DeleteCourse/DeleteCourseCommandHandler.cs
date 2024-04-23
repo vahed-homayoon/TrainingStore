@@ -5,12 +5,12 @@ using TrainingStore.Domain.Courses;
 
 namespace TrainingStore.Application.Courses.AddCourse;
 
-internal sealed class AddCourseCommandHandler : ICommandHandler<AddCourseCommand>
+internal sealed class DeleteCourseCommandHandler : ICommandHandler<DeleteCourseCommand>
 {
 	private readonly ICourseRepository _courseRepository;
 	private readonly IUnitOfWork _unitOfWork;
 
-	public AddCourseCommandHandler(
+	public DeleteCourseCommandHandler(
 		ICourseRepository courseRepository,
 		IUnitOfWork unitOfWork)
 	{
@@ -19,21 +19,17 @@ internal sealed class AddCourseCommandHandler : ICommandHandler<AddCourseCommand
 	}
 
 	public async Task<Result> Handle(
-		AddCourseCommand request,
+		DeleteCourseCommand request,
 		CancellationToken cancellationToken)
 	{
-		var result = await _courseRepository.GetByNameAsync(request.Name, cancellationToken);
+		var course = await _courseRepository.GetByIdAsync(request.Id, cancellationToken);
 
-		if (result is not null)
+		if (course is null)
 		{
-			return Result.Failure(CourseErrors.Found);
+			return Result.Failure(CourseErrors.NotFound);
 		}
 
-		var course = Course.Create(
-			request.Name,
-			request.Description);
-
-		_courseRepository.Add(course);
+		_courseRepository.Delete(course);
 
 		await _unitOfWork.SaveChangesAsync(cancellationToken);
 

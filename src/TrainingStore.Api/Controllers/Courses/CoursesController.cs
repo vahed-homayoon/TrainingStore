@@ -1,7 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TrainingStore.Application.Courses.AddCourse;
-using TrainingStore.Application.Courses.GetCourse;
+using TrainingStore.Application.Courses.EditCourse;
+using TrainingStore.Application.Courses.GetCourseById;
 using TrainingStore.Domain.Abstractions;
 
 namespace TrainingStore.Api.Controllers.Courses
@@ -17,8 +18,8 @@ namespace TrainingStore.Api.Controllers.Courses
 			_sender = sender;
 		}
 
-		[HttpGet("{id:guid}")]
-		public async Task<IActionResult> GetCourseById(Guid id, CancellationToken cancellationToken)
+		[HttpGet("{id:int}")]
+		public async Task<IActionResult> GetCourseById(int id, CancellationToken cancellationToken)
 		{
 			var query = new GetCourseByIdQuery(id);
 
@@ -28,9 +29,35 @@ namespace TrainingStore.Api.Controllers.Courses
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> AddCourse(AddCourseRequest request, CancellationToken cancellationToken)
+		public async Task<IActionResult> AddCourse(AddCourseCommand command, CancellationToken cancellationToken)
 		{
-			var command = new AddCourseCommand(request.CourseId, request.Name, request.Description);
+			Result result = await _sender.Send(command, cancellationToken);
+
+			if (result.IsFailure)
+			{
+				return BadRequest(result.Error);
+			}
+
+			return Ok();
+		}
+
+		[HttpPut]
+		public async Task<IActionResult> EditCourse(EditCourseCommand command, CancellationToken cancellationToken)
+		{
+			Result result = await _sender.Send(command, cancellationToken);
+
+			if (result.IsFailure)
+			{
+				return BadRequest(result.Error);
+			}
+
+			return Ok();
+		}
+
+		[HttpDelete("{id:int}")]
+		public async Task<IActionResult> DeleteCourse(int id, CancellationToken cancellationToken)
+		{
+			var command = new DeleteCourseCommand(id);
 
 			Result result = await _sender.Send(command, cancellationToken);
 

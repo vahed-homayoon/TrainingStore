@@ -3,7 +3,7 @@ using TrainingStore.Domain.Abstractions;
 using TrainingStore.Domain.Bookings;
 using TrainingStore.Domain.Courses;
 
-namespace TrainingStore.Application.Courses.GetCourse;
+namespace TrainingStore.Application.Courses.GetCourseById;
 
 internal sealed class GetCourseByIdQueryHandler
 	: IQueryHandler<GetCourseByIdQuery, CourseResponse>
@@ -20,7 +20,7 @@ internal sealed class GetCourseByIdQueryHandler
 		CancellationToken cancellationToken)
 	{
 		var course = await _courseRepository.GetByIdAsync(
-			request.CourseId,
+			request.Id,
 			cancellationToken);
 
 		if (course is null)

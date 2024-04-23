@@ -10,6 +10,16 @@ internal sealed class CourseConfiguration : IEntityTypeConfiguration<Course>
     {
         builder.ToTable("Courses");
 
-        builder.HasKey(m => m.Id);
-    }
+		builder.HasKey(m => m.Id);
+
+		builder
+			.Property(b => b.Name)
+			.HasMaxLength(50)
+			.IsRequired();
+
+		builder
+			.Property(b => b.Description)
+			.HasMaxLength(200)
+			.IsRequired();
+	}
 }

@@ -3,6 +3,4 @@ using TrainingStore.Domain.Abstractions;
 
 namespace TrainingStore.Application.Courses.AddCourse;
 
-public sealed record AddCourseCommand(
-	string Name,
-	string Description) : ICommand;
+public sealed record DeleteCourseCommand(int Id) : ICommand;

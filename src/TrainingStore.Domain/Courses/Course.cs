@@ -24,9 +24,8 @@ public sealed class Course : BaseEntity
 		return course;
 	}
 
-	public void Edit(int id, string name, string description)
+	public void Edit(string name, string description)
 	{
-		Id = id;
 		Name = name;
 		Description = description;
 	}

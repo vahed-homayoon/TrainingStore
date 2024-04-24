@@ -1,6 +1,5 @@
 ﻿using TrainingStore.Application.Abstractions.Messaging;
 using TrainingStore.Domain.Abstractions;
-using TrainingStore.Domain.Bookings;
 using TrainingStore.Domain.Courses;
 
 namespace TrainingStore.Application.Courses.EditCourse;
@@ -22,7 +21,7 @@ internal sealed class EditCourseCommandHandler : ICommandHandler<EditCourseComma
 		EditCourseCommand request,
 		CancellationToken cancellationToken)
 	{
-		var course = await _courseRepository.GetByIdAsync(request.Id, cancellationToken);
+		var course = await _courseRepository.FindByIdAsync(request.Id, cancellationToken);
 
 		if (course is null)
 		{
@@ -30,11 +29,8 @@ internal sealed class EditCourseCommandHandler : ICommandHandler<EditCourseComma
 		}
 
 		course.Edit(
-			course.Id,
 			request.Name,
 			request.Description);
-
-		_courseRepository.Edit(course);
 
 		await _unitOfWork.SaveChangesAsync(cancellationToken);
 

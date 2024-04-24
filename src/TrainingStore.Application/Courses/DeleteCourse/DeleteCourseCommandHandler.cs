@@ -1,9 +1,8 @@
 ﻿using TrainingStore.Application.Abstractions.Messaging;
 using TrainingStore.Domain.Abstractions;
-using TrainingStore.Domain.Bookings;
 using TrainingStore.Domain.Courses;
 
-namespace TrainingStore.Application.Courses.AddCourse;
+namespace TrainingStore.Application.Courses.DeleteCourse;
 
 internal sealed class DeleteCourseCommandHandler : ICommandHandler<DeleteCourseCommand>
 {
@@ -22,7 +21,7 @@ internal sealed class DeleteCourseCommandHandler : ICommandHandler<DeleteCourseC
 		DeleteCourseCommand request,
 		CancellationToken cancellationToken)
 	{
-		var course = await _courseRepository.GetByIdAsync(request.Id, cancellationToken);
+		var course = await _courseRepository.FindByIdAsync(request.Id, cancellationToken);
 
 		if (course is null)
 		{

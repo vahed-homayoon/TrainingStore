@@ -3,11 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using TrainingStore.Application.Courses.AddCourse;
 using TrainingStore.Application.Courses.EditCourse;
 using TrainingStore.Application.Courses.GetCourseById;
+using TrainingStore.Application.Courses.GetCourseList;
 using TrainingStore.Domain.Abstractions;
 
 namespace TrainingStore.Api.Controllers.Courses
 {
-	[ApiController]
+	//[ApiController]
 	[Route("api/Courses")]
 	public class CoursesController : ControllerBase
 	{
@@ -16,6 +17,16 @@ namespace TrainingStore.Api.Controllers.Courses
 		public CoursesController(ISender sender)
 		{
 			_sender = sender;
+		}
+
+		[HttpGet("List")]
+		public async Task<IActionResult> CourseList(CancellationToken cancellationToken)
+		{
+			var query = new GetCourseListQuery();
+
+			Result<IReadOnlyList<CourseListResponse>> result = await _sender.Send(query, cancellationToken);
+
+			return Ok(result.Value);
 		}
 
 		[HttpGet("{id:int}")]
@@ -29,7 +40,7 @@ namespace TrainingStore.Api.Controllers.Courses
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> AddCourse(AddCourseCommand command, CancellationToken cancellationToken)
+		public async Task<IActionResult> AddCourse([FromBody] AddCourseCommand command, CancellationToken cancellationToken)
 		{
 			Result result = await _sender.Send(command, cancellationToken);
 
@@ -42,7 +53,7 @@ namespace TrainingStore.Api.Controllers.Courses
 		}
 
 		[HttpPut]
-		public async Task<IActionResult> EditCourse(EditCourseCommand command, CancellationToken cancellationToken)
+		public async Task<IActionResult> EditCourse([FromBody] EditCourseCommand command, CancellationToken cancellationToken)
 		{
 			Result result = await _sender.Send(command, cancellationToken);
 
@@ -57,14 +68,14 @@ namespace TrainingStore.Api.Controllers.Courses
 		[HttpDelete("{id:int}")]
 		public async Task<IActionResult> DeleteCourse(int id, CancellationToken cancellationToken)
 		{
-			var command = new DeleteCourseCommand(id);
+			//var command = new DeleteCourseCommand(id);
 
-			Result result = await _sender.Send(command, cancellationToken);
+			//Result result = await _sender.Send(command, cancellationToken);
 
-			if (result.IsFailure)
-			{
-				return BadRequest(result.Error);
-			}
+			//if (result.IsFailure)
+			//{
+			//	return BadRequest(result.Error);
+			//}
 
 			return Ok();
 		}

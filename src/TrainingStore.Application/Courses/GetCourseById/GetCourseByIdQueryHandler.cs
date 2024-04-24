@@ -1,6 +1,5 @@
 ﻿using TrainingStore.Application.Abstractions.Messaging;
 using TrainingStore.Domain.Abstractions;
-using TrainingStore.Domain.Bookings;
 using TrainingStore.Domain.Courses;
 
 namespace TrainingStore.Application.Courses.GetCourseById;

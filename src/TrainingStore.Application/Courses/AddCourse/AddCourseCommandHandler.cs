@@ -1,6 +1,5 @@
 ﻿using TrainingStore.Application.Abstractions.Messaging;
 using TrainingStore.Domain.Abstractions;
-using TrainingStore.Domain.Bookings;
 using TrainingStore.Domain.Courses;
 
 namespace TrainingStore.Application.Courses.AddCourse;
@@ -22,11 +21,11 @@ internal sealed class AddCourseCommandHandler : ICommandHandler<AddCourseCommand
 		AddCourseCommand request,
 		CancellationToken cancellationToken)
 	{
-		var result = await _courseRepository.GetByNameAsync(request.Name, cancellationToken);
+		var result = await _courseRepository.IsDuplicatedName(request.Name, cancellationToken);
 
-		if (result is not null)
+		if (result is true)
 		{
-			return Result.Failure(CourseErrors.Found);
+			return Result.Failure(CourseErrors.DuplicatedName);
 		}
 
 		var course = Course.Create(

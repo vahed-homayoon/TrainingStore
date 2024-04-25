@@ -1,57 +1,160 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Text.Json.Serialization;
 
 namespace TrainingStore.Domain.Abstractions;
 
 public class Result
 {
-	public Result(bool isSuccess, Error error)
+	#region Properties
+
+	public bool IsSuccess { get; protected set; }
+
+	[JsonIgnore]
+	public List<Error> Errors { get; private set; } = new List<Error>();
+
+	public bool IsFailure { get { return !IsSuccess; } }
+
+	public List<string> ErrorMessages
 	{
-		if (isSuccess && error != Error.None)
+		get
 		{
-			throw new InvalidOperationException();
+			return Errors.Select(m => m.Description).ToList();
 		}
-
-		if (!isSuccess && error == Error.None)
-		{
-			throw new InvalidOperationException();
-		}
-
-		IsSuccess = isSuccess;
-		Error = error;
 	}
 
-	public bool IsSuccess { get; }
+	#endregion
 
-	public bool IsFailure => !IsSuccess;
+	#region Ctors
 
-	public Error Error { get; }
+	protected Result()
+	{
 
-	public static Result Success() => new(true, Error.None);
+	}
 
-	public static Result Failure(Error error) => new(false, error);
+	protected Result(Error message)
+	{
+		Errors = new List<Error>() { message };
+		IsSuccess = false;
+	}
 
-	public static Result<TValue> Success<TValue>(TValue value) => new(value, true, Error.None);
+	protected Result(List<Error> messages)
+	{
+		Errors = messages;
+		IsSuccess = false;
+	}
 
-	public static Result<TValue> Failure<TValue>(Error error) => new(default, false, error);
+	#endregion
 
-	public static Result<TValue> Create<TValue>(TValue? value) =>
-		value is not null ? Success(value) : Failure<TValue>(Error.NullValue);
+	#region Methods
+
+	public static Result Success()
+	{
+		return new Result()
+		{
+			IsSuccess = true,
+		};
+	}
+
+	public static Result Failure(Error message)
+	{
+		return new Result(message);
+	}
+
+	public static Result Failure(List<Error> messages)
+	{
+		return new Result(messages);
+	}
+
+
+	public Result<T> ToResult<T>(T value)
+	{
+		return new Result<T>(value, Errors) { IsSuccess = IsSuccess };
+	}
+
+	protected Result ToResult<T>(Result<T> result)
+	{
+		return new Result(result.Errors) { IsSuccess = result.IsSuccess };
+	}
+
+	public override string ToString()
+	{
+		return string.Join('.', Errors.Select(m => m.Description).ToList());
+	}
+
+	#endregion
 }
 
-public sealed class Result<TValue> : Result
+public class Result<T> : Result
 {
-	private readonly TValue? _value;
+	#region Properties
 
-	public Result(TValue? value, bool isSuccess, Error error)
-		: base(isSuccess, error)
+	public T Data { get; private set; }
+
+	#endregion
+
+	#region Ctors
+
+	private Result()
 	{
-		_value = value;
+
 	}
 
-	[NotNull]
-	public TValue Value => IsSuccess
-		? _value!
-		: throw new InvalidOperationException("The value of a failure result can not be accessed.");
+	private Result(T data)
+	{
+		Data = data;
+	}
 
-	public static implicit operator Result<TValue>(TValue? value) => Create(value);
+	private Result(T data, Error message) : base(message)
+	{
+		Data = data;
+	}
+
+	internal Result(T data, List<Error> messages) : base(messages)
+	{
+		Data = data;
+	}
+
+	#endregion
+
+	#region Methods
+
+	public static Result<TResult> Success<TResult>(TResult value)
+	{
+		return new Result<TResult>(value)
+		{
+			IsSuccess = true,
+		};
+	}
+
+	public static Result<TResult> Failure<TResult>(Error message)
+	{
+		return new Result<TResult>(default, message);
+	}
+
+
+	public static Result<TResult> Failure<TResult>(List<Error> messages)
+	{
+		return new Result<TResult>(default, messages);
+	}
+
+	public static Result<TResult> Failure<TResult>(Error message, TResult value)
+	{
+		return new Result<TResult>(value, message);
+	}
+
+	public static Result<TResult> Failure<TResult>(List<Error> messages, TResult value)
+	{
+		return new Result<TResult>(value, messages);
+	}
+
+	public Result ToResult()
+	{
+		return ToResult(this);
+	}
+
+	public override string ToString()
+	{
+		return base.ToString();
+	}
+
+	#endregion
 }

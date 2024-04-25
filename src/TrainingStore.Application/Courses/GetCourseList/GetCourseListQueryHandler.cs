@@ -1,4 +1,5 @@
 ﻿using TrainingStore.Application.Abstractions.Messaging;
+using TrainingStore.Application.Courses.GetCourseById;
 using TrainingStore.Domain.Abstractions;
 using TrainingStore.Domain.Courses;
 
@@ -29,7 +30,6 @@ internal sealed class GetCourseListQueryHandler
 			})
 			.ToList();
 
-		return response;
-
+		return Result<IReadOnlyList<CourseListResponse>>.Success<IReadOnlyList<CourseListResponse>>(response);
 	}
 }

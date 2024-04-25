@@ -1,6 +1,9 @@
-﻿using MediatR;
+﻿using Azure;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using TrainingStore.Api.Controllers.Base;
 using TrainingStore.Application.Courses.AddCourse;
+using TrainingStore.Application.Courses.DeleteCourse;
 using TrainingStore.Application.Courses.EditCourse;
 using TrainingStore.Application.Courses.GetCourseById;
 using TrainingStore.Application.Courses.GetCourseList;
@@ -10,7 +13,7 @@ namespace TrainingStore.Api.Controllers.Courses
 {
 	//[ApiController]
 	[Route("api/Courses")]
-	public class CoursesController : ControllerBase
+	public class CoursesController : BaseController
 	{
 		private readonly ISender _sender;
 
@@ -26,7 +29,7 @@ namespace TrainingStore.Api.Controllers.Courses
 
 			Result<IReadOnlyList<CourseListResponse>> result = await _sender.Send(query, cancellationToken);
 
-			return Ok(result.Value);
+			return ResponseResult(result);
 		}
 
 		[HttpGet("{id:int}")]
@@ -36,20 +39,15 @@ namespace TrainingStore.Api.Controllers.Courses
 
 			Result<CourseResponse> response = await _sender.Send(query, cancellationToken);
 
-			return response.IsSuccess ? Ok(response.Value) : NotFound(response.Error);
+			return ResponseResult(response);
 		}
 
 		[HttpPost]
 		public async Task<IActionResult> AddCourse([FromBody] AddCourseCommand command, CancellationToken cancellationToken)
 		{
 			Result result = await _sender.Send(command, cancellationToken);
-
-			if (result.IsFailure)
-			{
-				return BadRequest(result.Error);
-			}
-
-			return Ok();
+			
+			return ResponseResult(result);
 		}
 
 		[HttpPut]
@@ -57,27 +55,17 @@ namespace TrainingStore.Api.Controllers.Courses
 		{
 			Result result = await _sender.Send(command, cancellationToken);
 
-			if (result.IsFailure)
-			{
-				return BadRequest(result.Error);
-			}
-
-			return Ok();
+			return ResponseResult(result);
 		}
 
 		[HttpDelete("{id:int}")]
 		public async Task<IActionResult> DeleteCourse(int id, CancellationToken cancellationToken)
 		{
-			//var command = new DeleteCourseCommand(id);
+			var command = new DeleteCourseCommand(id);
 
-			//Result result = await _sender.Send(command, cancellationToken);
+			Result result = await _sender.Send(command, cancellationToken);
 
-			//if (result.IsFailure)
-			//{
-			//	return BadRequest(result.Error);
-			//}
-
-			return Ok();
+			return ResponseResult(result);
 		}
 	}
 }

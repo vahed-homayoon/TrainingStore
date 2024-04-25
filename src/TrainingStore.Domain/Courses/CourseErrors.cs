@@ -6,7 +6,7 @@ public static class CourseErrors
 {
 	public static readonly Error DuplicatedName = new(
 		"Course.DuplicatedName",
-		"درس مورد نظر وجود دارد");
+		"نام درس تکراری است");
 
 	public static readonly Error NotFound = new(
 		"Course.NotFound",

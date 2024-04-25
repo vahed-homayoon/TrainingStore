@@ -24,7 +24,7 @@ internal sealed class GetCourseByIdQueryHandler
 
 		if (course is null)
 		{
-			return Result.Failure<CourseResponse>(CourseErrors.NotFound);
+			return Result<CourseResponse>.Failure<CourseResponse>(CourseErrors.NotFound);
 		}
 
 		var response = new CourseResponse(
@@ -32,6 +32,6 @@ internal sealed class GetCourseByIdQueryHandler
 			course.Name,
 			course.Description);
 
-		return response;
+		return Result<CourseResponse>.Success(response);
 	}
 }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using TrainingStore.Domain.Abstractions;
+using Shared.DbContexts;
 using TrainingStore.Domain.Courses;
 using TrainingStore.Infrastructure.Repositories;
 

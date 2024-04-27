@@ -1,4 +1,4 @@
-﻿namespace TrainingStore.Application.Exceptions;
+﻿namespace Shared.Exceptions;
 
 public sealed class ValidationException : Exception
 {

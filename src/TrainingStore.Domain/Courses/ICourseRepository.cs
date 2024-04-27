@@ -1,6 +1,4 @@
-﻿using TrainingStore.Domain.Abstractions;
-
-namespace TrainingStore.Domain.Courses;
+﻿namespace TrainingStore.Domain.Courses;
 
 public interface ICourseRepository
 {

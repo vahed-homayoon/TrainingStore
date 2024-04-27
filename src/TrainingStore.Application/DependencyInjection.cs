@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
-using TrainingStore.Application.Abstractions.Behaviors;
+using Shared.MediatR.Behaviors;
 
 namespace TrainingStore.Application;
 

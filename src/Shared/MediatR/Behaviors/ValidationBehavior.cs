@@ -1,11 +1,11 @@
-﻿using TrainingStore.Application.Abstractions.Messaging;
-using TrainingStore.Application.Exceptions;
+﻿using Shared.Exceptions;
 using FluentValidation;
 using MediatR;
+using Shared.MediatR.Messaging;
 
-namespace TrainingStore.Application.Abstractions.Behaviors;
+namespace Shared.MediatR.Behaviors;
 
-internal sealed class ValidationBehavior<TRequest, TResponse>
+public sealed class ValidationBehavior<TRequest, TResponse>
     : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IBaseCommand
 {

@@ -1,4 +1,4 @@
-﻿using TrainingStore.Domain.Abstractions;
+﻿using Shared.Entities;
 
 namespace TrainingStore.Domain.Courses;
 

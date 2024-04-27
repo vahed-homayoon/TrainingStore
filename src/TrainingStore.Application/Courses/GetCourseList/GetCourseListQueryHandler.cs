@@ -1,6 +1,5 @@
-﻿using TrainingStore.Application.Abstractions.Messaging;
-using TrainingStore.Application.Courses.GetCourseById;
-using TrainingStore.Domain.Abstractions;
+﻿using Shared.MediatR.Messaging;
+using Shared.Results;
 using TrainingStore.Domain.Courses;
 
 namespace TrainingStore.Application.Courses.GetCourseList;

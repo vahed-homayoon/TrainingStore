@@ -1,13 +1,12 @@
-﻿using Azure;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Shared.Results;
 using TrainingStore.Api.Controllers.Base;
 using TrainingStore.Application.Courses.AddCourse;
 using TrainingStore.Application.Courses.DeleteCourse;
 using TrainingStore.Application.Courses.EditCourse;
 using TrainingStore.Application.Courses.GetCourseById;
 using TrainingStore.Application.Courses.GetCourseList;
-using TrainingStore.Domain.Abstractions;
 
 namespace TrainingStore.Api.Controllers.Courses
 {

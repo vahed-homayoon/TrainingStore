@@ -1,14 +1,14 @@
-﻿using TrainingStore.Domain.Abstractions;
-using MediatR;
+﻿using MediatR;
+using Shared.Results;
 
-namespace TrainingStore.Application.Abstractions.Messaging;
+namespace Shared.MediatR.Messaging;
 
 public interface ICommandHandler<TCommand> : IRequestHandler<TCommand, Result>
-	where TCommand : ICommand
+    where TCommand : ICommand
 {
 }
 
 public interface ICommandHandler<TCommand, TResponse> : IRequestHandler<TCommand, Result<TResponse>>
-	where TCommand : ICommand<TResponse>
+    where TCommand : ICommand<TResponse>
 {
 }

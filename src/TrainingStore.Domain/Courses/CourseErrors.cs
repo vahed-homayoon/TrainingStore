@@ -1,4 +1,4 @@
-﻿using TrainingStore.Domain.Abstractions;
+﻿using Shared.Results;
 
 namespace TrainingStore.Domain.Courses;
 

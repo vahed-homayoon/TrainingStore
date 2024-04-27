@@ -1,5 +1,5 @@
-﻿using TrainingStore.Application.Exceptions;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Shared.Exceptions;
 
 namespace TrainingStore.Api.Middleware;
 

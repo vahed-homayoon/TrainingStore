@@ -1,5 +1,4 @@
-﻿using TrainingStore.Application.Abstractions.Messaging;
-using TrainingStore.Domain.Abstractions;
+﻿using Shared.MediatR.Messaging;
 
 namespace TrainingStore.Application.Courses.EditCourse;
 

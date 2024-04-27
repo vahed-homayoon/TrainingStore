@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TrainingStore.Domain.Abstractions;
+using Shared.Entities;
 
 namespace TrainingStore.Infrastructure.Repositories;
 

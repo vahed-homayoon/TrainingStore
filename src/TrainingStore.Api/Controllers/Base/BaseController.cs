@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using TrainingStore.Domain.Abstractions;
+using Shared.Results;
 
 namespace TrainingStore.Api.Controllers.Base;
 

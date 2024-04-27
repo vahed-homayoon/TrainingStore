@@ -1,7 +1,7 @@
-﻿using TrainingStore.Domain.Abstractions;
-using MediatR;
+﻿using MediatR;
+using Shared.Results;
 
-namespace TrainingStore.Application.Abstractions.Messaging;
+namespace Shared.MediatR.Messaging;
 
 public interface ICommand : IRequest<Result>, IBaseCommand
 {

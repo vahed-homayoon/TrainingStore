@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainingStore.Application",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainingStore.Api", "src\TrainingStore.Api\TrainingStore.Api.csproj", "{A71387F7-2E4F-4F10-BE3C-A72F2850FDDD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "src\Shared\Shared.csproj", "{7C1A5B86-ED79-4227-AA97-F5CD1A2B1F19}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{A71387F7-2E4F-4F10-BE3C-A72F2850FDDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A71387F7-2E4F-4F10-BE3C-A72F2850FDDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A71387F7-2E4F-4F10-BE3C-A72F2850FDDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C1A5B86-ED79-4227-AA97-F5CD1A2B1F19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C1A5B86-ED79-4227-AA97-F5CD1A2B1F19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C1A5B86-ED79-4227-AA97-F5CD1A2B1F19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C1A5B86-ED79-4227-AA97-F5CD1A2B1F19}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,6 +50,7 @@ Global
 		{753B29DD-9DAE-4C67-9F82-1508FC15EE19} = {FF14614C-DC47-4403-882A-566E234CE9BC}
 		{694B306C-D1E8-444A-A2C2-86BFBD9616A3} = {FF14614C-DC47-4403-882A-566E234CE9BC}
 		{A71387F7-2E4F-4F10-BE3C-A72F2850FDDD} = {FF14614C-DC47-4403-882A-566E234CE9BC}
+		{7C1A5B86-ED79-4227-AA97-F5CD1A2B1F19} = {FF14614C-DC47-4403-882A-566E234CE9BC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AFB7EE7A-130C-4C9E-BEF6-E187AC51F0C2}

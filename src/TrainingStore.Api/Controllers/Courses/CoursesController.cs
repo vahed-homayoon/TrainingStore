@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Shared.DataGrids;
 using Shared.Results;
 using TrainingStore.Api.Controllers.Base;
 using TrainingStore.Application.Courses.AddCourse;
@@ -22,11 +23,9 @@ namespace TrainingStore.Api.Controllers.Courses
 		}
 
 		[HttpGet("List")]
-		public async Task<IActionResult> CourseList(CancellationToken cancellationToken)
+		public async Task<IActionResult> CourseList(GetCourseListQuery query, CancellationToken cancellationToken)
 		{
-			var query = new GetCourseListQuery();
-
-			Result<IReadOnlyList<CourseListResponse>> result = await _sender.Send(query, cancellationToken);
+			Result<PagedList<CourseListResponse>> result = await _sender.Send(query, cancellationToken);
 
 			return ResponseResult(result);
 		}
@@ -45,7 +44,7 @@ namespace TrainingStore.Api.Controllers.Courses
 		public async Task<IActionResult> AddCourse([FromBody] AddCourseCommand command, CancellationToken cancellationToken)
 		{
 			Result result = await _sender.Send(command, cancellationToken);
-			
+
 			return ResponseResult(result);
 		}
 

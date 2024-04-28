@@ -1,13 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Shared.Data;
 using Shared.DbContexts;
 using TrainingStore.Domain.Courses;
+using TrainingStore.Infrastructure.Data;
 using TrainingStore.Infrastructure.Repositories;
 
 namespace TrainingStore.Infrastructure;
 
-public static class SetupInfrastructure
+public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(
         this IServiceCollection services,
@@ -29,5 +31,8 @@ public static class SetupInfrastructure
         services.AddScoped<ICourseRepository, CourseRepository>();
 
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<TrainingDbContext>());
-    }
+
+		services.AddSingleton<ISqlConnectionFactory>(_ =>
+			new SqlConnectionFactory(connectionString));
+	}
 }

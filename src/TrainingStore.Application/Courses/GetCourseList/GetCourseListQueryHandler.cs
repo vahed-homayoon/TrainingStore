@@ -8,7 +8,7 @@ using System.Data;
 namespace TrainingStore.Application.Courses.GetCourseList;
 
 internal sealed class GetCourseListQueryHandler
-	: IQueryHandler<GetCourseListQuery, PagedList<CourseListResponse>>
+	: IQueryHandler<GetCourseListQuery, DataGridResponse<CourseListResponse>>
 {
 	private readonly ISqlConnectionFactory _sqlConnectionFactory;
 
@@ -17,7 +17,7 @@ internal sealed class GetCourseListQueryHandler
 		_sqlConnectionFactory = sqlConnectionFactory;
 	}
 
-	public async Task<Result<PagedList<CourseListResponse>>> Handle(
+	public async Task<Result<DataGridResponse<CourseListResponse>>> Handle(
 		GetCourseListQuery request,
 		CancellationToken cancellationToken)
 	{
@@ -58,8 +58,8 @@ internal sealed class GetCourseListQueryHandler
 			splitOn: "TotalCount"
 			)).ToList();
 
-		var response = PagedList<CourseListResponse>.Create(result, totalCount);
+		var response = DataGridResponse<CourseListResponse>.Create(result, totalCount);
 
-		return Result<PagedList<CourseListResponse>>.Success(response);
+		return Result<DataGridResponse<CourseListResponse>>.Success(response);
 	}
 }

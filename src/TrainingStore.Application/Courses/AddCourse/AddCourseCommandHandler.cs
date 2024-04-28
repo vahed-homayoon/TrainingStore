@@ -22,9 +22,9 @@ internal sealed class AddCourseCommandHandler : ICommandHandler<AddCourseCommand
 		AddCourseCommand request,
 		CancellationToken cancellationToken)
 	{
-		var result = await _courseRepository.IsDuplicatedName(request.Name, cancellationToken);
+		var isDuplicatedName = await _courseRepository.IsDuplicatedName(0, request.Name, cancellationToken);
 
-		if (result is true)
+		if (isDuplicatedName)
 		{
 			return Result.Failure(CourseErrors.DuplicatedName);
 		}

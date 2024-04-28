@@ -11,7 +11,6 @@ using TrainingStore.Application.Courses.GetCourseList;
 
 namespace TrainingStore.Api.Controllers.Courses
 {
-	//[ApiController]
 	[Route("api/Courses")]
 	public class CoursesController : BaseController
 	{
@@ -23,15 +22,15 @@ namespace TrainingStore.Api.Controllers.Courses
 		}
 
 		[HttpGet("List")]
-		public async Task<IActionResult> CourseList(GetCourseListQuery query, CancellationToken cancellationToken)
+		public async Task<IActionResult> GetList([FromQuery] GetCourseListQuery query, CancellationToken cancellationToken)
 		{
-			Result<PagedList<CourseListResponse>> result = await _sender.Send(query, cancellationToken);
+			Result<DataGridResponse<CourseListResponse>> result = await _sender.Send(query, cancellationToken);
 
 			return ResponseResult(result);
 		}
 
 		[HttpGet("{id:int}")]
-		public async Task<IActionResult> GetCourseById(int id, CancellationToken cancellationToken)
+		public async Task<IActionResult> GetById(int id, CancellationToken cancellationToken)
 		{
 			var query = new GetCourseByIdQuery(id);
 
@@ -41,7 +40,7 @@ namespace TrainingStore.Api.Controllers.Courses
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> AddCourse([FromBody] AddCourseCommand command, CancellationToken cancellationToken)
+		public async Task<IActionResult> Add([FromBody] AddCourseCommand command, CancellationToken cancellationToken)
 		{
 			Result result = await _sender.Send(command, cancellationToken);
 
@@ -49,7 +48,7 @@ namespace TrainingStore.Api.Controllers.Courses
 		}
 
 		[HttpPut]
-		public async Task<IActionResult> EditCourse([FromBody] EditCourseCommand command, CancellationToken cancellationToken)
+		public async Task<IActionResult> Edit([FromBody] EditCourseCommand command, CancellationToken cancellationToken)
 		{
 			Result result = await _sender.Send(command, cancellationToken);
 
@@ -57,7 +56,7 @@ namespace TrainingStore.Api.Controllers.Courses
 		}
 
 		[HttpDelete("{id:int}")]
-		public async Task<IActionResult> DeleteCourse(int id, CancellationToken cancellationToken)
+		public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
 		{
 			var command = new DeleteCourseCommand(id);
 

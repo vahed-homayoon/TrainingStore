@@ -6,7 +6,7 @@ namespace TrainingStore.Application.Courses.GetCourseList;
 
 public sealed class GetCourseListQuery:
 	DataGridRequest, 
-    IQuery<PagedList<CourseListResponse>>
+    IQuery<DataGridResponse<CourseListResponse>>
 {
     public string? Name { get; set; }
 }

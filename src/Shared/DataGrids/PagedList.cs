@@ -12,7 +12,7 @@ public class PagedList<T>
 
 	public int TotalCount { get; }
 
-	public static PagedList<T> List(List<T> items, int totalCount)
+	public static PagedList<T> Create(List<T> items, int totalCount)
 	{
 		var course = new PagedList<T>(items, totalCount);
 

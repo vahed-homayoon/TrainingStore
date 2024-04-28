@@ -1,6 +1,5 @@
 ﻿using Shared.MediatR.Messaging;
 using Shared.Results;
-using TrainingStore.Domain.Courses;
 using Dapper;
 using Shared.DataGrids;
 using Shared.Data;
@@ -11,15 +10,12 @@ namespace TrainingStore.Application.Courses.GetCourseList;
 internal sealed class GetCourseListQueryHandler
 	: IQueryHandler<GetCourseListQuery, PagedList<CourseListResponse>>
 {
-	private readonly ICourseRepository _courseRepository;
 	private readonly ISqlConnectionFactory _sqlConnectionFactory;
 
-	public GetCourseListQueryHandler(ICourseRepository courseRepository, ISqlConnectionFactory sqlConnectionFactory)
+	public GetCourseListQueryHandler(ISqlConnectionFactory sqlConnectionFactory)
 	{
-		_courseRepository = courseRepository;
 		_sqlConnectionFactory = sqlConnectionFactory;
 	}
-
 
 	public async Task<Result<PagedList<CourseListResponse>>> Handle(
 		GetCourseListQuery request,
@@ -46,7 +42,7 @@ internal sealed class GetCourseListQueryHandler
 
 		int totalCount = 0;
 
-		var result = await connection.QueryAsync<CourseListResponse, int, CourseListResponse>(sql,
+		var result = (await connection.QueryAsync<CourseListResponse, int, CourseListResponse>(sql,
 			(course, count) =>
 			{
 				totalCount = count;
@@ -60,9 +56,9 @@ internal sealed class GetCourseListQueryHandler
 				request.Page
 			},
 			splitOn: "TotalCount"
-			);
+			)).ToList();
 
-		var response = PagedList<CourseListResponse>.List(result.ToList(), totalCount);
+		var response = PagedList<CourseListResponse>.Create(result, totalCount);
 
 		return Result<PagedList<CourseListResponse>>.Success(response);
 	}

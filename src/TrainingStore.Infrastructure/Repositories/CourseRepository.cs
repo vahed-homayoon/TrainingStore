@@ -12,21 +12,6 @@ internal sealed class CourseRepository :
 	{
 	}
 
-	public async Task<IReadOnlyList<Course>> GetCourseListAsync(CancellationToken cancellationToken = default)
-	{
-		var result = DbContext
-			.Set<Course>();
-			//.AsNoTracking();
-
-		int course = result.Count();
-
-
-		var hh = await result.ToListAsync(cancellationToken);
-
-
-		return hh;
-	}
-
 	public async Task<bool> IsDuplicatedName(
 		int id,
 		string name,

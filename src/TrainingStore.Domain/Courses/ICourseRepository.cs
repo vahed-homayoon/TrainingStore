@@ -4,8 +4,6 @@ namespace TrainingStore.Domain.Courses;
 
 public interface ICourseRepository
 {
-	Task<IReadOnlyList<Course>> GetCourseListAsync(CancellationToken cancellationToken = default);
-
 	Task<Course?> GetByIdAsync(int id, CancellationToken cancellationToken = default);
 
 	Task<Course?> FindByIdAsync(int id, CancellationToken cancellationToken = default);

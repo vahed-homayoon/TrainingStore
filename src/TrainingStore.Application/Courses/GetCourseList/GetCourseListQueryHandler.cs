@@ -4,6 +4,7 @@ using Dapper;
 using Shared.DataGrids;
 using Shared.Data;
 using System.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace TrainingStore.Application.Courses.GetCourseList;
 
@@ -23,12 +24,16 @@ internal sealed class GetCourseListQueryHandler
 	{
 		using IDbConnection connection = _sqlConnectionFactory.CreateConnection();
 
-		const string sql = """
+			const string sql = """
 				WITH CTE AS (
 				    SELECT 
 				        Id, 
 				        Name,
 				        Description,
+						CreateBy,
+						CreateDate,
+						UpdateBy,
+						UpdateDate,
 				        COUNT(*) OVER() AS TotalCount
 				    FROM Courses
 				    WHERE (@Name IS NULL OR Name LIKE '%' + @Name + '%')

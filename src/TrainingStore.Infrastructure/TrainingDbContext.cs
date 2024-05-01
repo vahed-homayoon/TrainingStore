@@ -19,23 +19,23 @@ public sealed class TrainingDbContext : DbContext, IUnitOfWork
 		foreach (var item in modelBuilder.Model.GetEntityTypes())
 		{
 			modelBuilder.Entity(item.ClrType)
-				.Property<string>("CreateBy")
+				.Property<string>("CreatedBy")
 				.IsRequired()
 				.HasMaxLength(50);
 
 			modelBuilder
 				.Entity(item.ClrType)
-				.Property<DateTime>("CreateDate")
+				.Property<DateTime>("CreatedDate")
 				.IsRequired();
 
 			modelBuilder
 				.Entity(item.ClrType)
-				.Property<string?>("UpdateBy")
+				.Property<string?>("UpdatedBy")
 				.HasMaxLength(50);
 
 			modelBuilder
 				.Entity(item.ClrType)
-				.Property<DateTime?>("UpdateDate");
+				.Property<DateTime?>("UpdatedDate");
 		}
 
 		base.OnModelCreating(modelBuilder);

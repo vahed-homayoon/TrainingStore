@@ -27,7 +27,7 @@ public class Teacher : Person
 
 	public void Edit(string nationalCode, string firstName, string sureName, string email, string phone, string address)
 	{
-		Edit(nationalCode, firstName, sureName, email, phone);
+		base.Edit(nationalCode, firstName, sureName, email, phone);
 		Address = address;
 	}
 }

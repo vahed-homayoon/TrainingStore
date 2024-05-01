@@ -5,20 +5,20 @@ using Shared.DataGrids;
 using Shared.Data;
 using System.Data;
 
-namespace TrainingStore.Application.Teachers.GetTeacherList;
+namespace TrainingStore.Application.Students.GetStudentList;
 
-internal sealed class GetTeacherListQueryHandler
-	: IQueryHandler<GetTeacherListQuery, DataGridResponse<TeacherListResponse>>
+internal sealed class GetStudentListQueryHandler
+	: IQueryHandler<GetStudentListQuery, DataGridResponse<StudentListResponse>>
 {
 	private readonly ISqlConnectionFactory _sqlConnectionFactory;
 
-	public GetTeacherListQueryHandler(ISqlConnectionFactory sqlConnectionFactory)
+	public GetStudentListQueryHandler(ISqlConnectionFactory sqlConnectionFactory)
 	{
 		_sqlConnectionFactory = sqlConnectionFactory;
 	}
 
-	public async Task<Result<DataGridResponse<TeacherListResponse>>> Handle(
-		GetTeacherListQuery request,
+	public async Task<Result<DataGridResponse<StudentListResponse>>> Handle(
+		GetStudentListQuery request,
 		CancellationToken cancellationToken)
 	{
 		using IDbConnection connection = _sqlConnectionFactory.CreateConnection();
@@ -49,11 +49,11 @@ internal sealed class GetTeacherListQueryHandler
 
 			int totalCount = 0;
 
-			var result = (await connection.QueryAsync<TeacherListResponse, int, TeacherListResponse>(sql,
-				(teacher, count) =>
+			var result = (await connection.QueryAsync<StudentListResponse, int, StudentListResponse>(sql,
+				(student, count) =>
 				{
 					totalCount = count;
-					return teacher;
+					return student;
 				},
 				new
 				{
@@ -66,9 +66,9 @@ internal sealed class GetTeacherListQueryHandler
 				splitOn: "TotalCount"
 				)).ToList();
 
-			var response = DataGridResponse<TeacherListResponse>.Create(result, totalCount);
+			var response = DataGridResponse<StudentListResponse>.Create(result, totalCount);
 
-			return Result<DataGridResponse<TeacherListResponse>>.Success(response);
+			return Result<DataGridResponse<StudentListResponse>>.Success(response);
 
 		}
 		catch (Exception ex)

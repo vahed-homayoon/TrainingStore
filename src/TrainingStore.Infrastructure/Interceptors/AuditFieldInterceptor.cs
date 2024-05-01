@@ -28,13 +28,13 @@ public class AuditFieldInterceptor : SaveChangesInterceptor
 		{
 			if (entry.State == EntityState.Added)
 			{
-				entry.Property("CreateBy").CurrentValue = "";
-				entry.Property("CreateDate").CurrentValue = now;
+				entry.Property("CreatedBy").CurrentValue = "";
+				entry.Property("CreatedDate").CurrentValue = now;
 			}
 			else if (entry.State == EntityState.Modified)
 			{
-				entry.Property("UpdateBy").CurrentValue = "";
-				entry.Property("UpdateDate").CurrentValue = now;
+				entry.Property("UpdatedBy").CurrentValue = "";
+				entry.Property("UpdatedDate").CurrentValue = now;
 			}
 		}
 	}

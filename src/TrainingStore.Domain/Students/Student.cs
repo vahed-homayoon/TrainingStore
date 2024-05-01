@@ -1,4 +1,5 @@
-﻿using TrainingStore.Domain.People;
+﻿using System.Net;
+using TrainingStore.Domain.People;
 
 namespace TrainingStore.Domain.Students;
 
@@ -20,5 +21,10 @@ public class Student : Person
 		var student = new Student(nationalCode, firstName, sureName, email, phone);
 
 		return student;
+	}
+
+	public void Edit(string nationalCode, string firstName, string sureName, string email, string phone)
+	{
+		base.Edit(nationalCode, firstName, sureName, email, phone);
 	}
 }

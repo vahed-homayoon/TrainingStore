@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Shared.Data;
 using Shared.DbContexts;
 using TrainingStore.Domain.Courses;
+using TrainingStore.Domain.Students;
 using TrainingStore.Domain.Teachers;
 using TrainingStore.Infrastructure.Data;
 using TrainingStore.Infrastructure.Interceptors;
@@ -33,6 +34,7 @@ public static class DependencyInjection
 
 		services.AddScoped<ICourseRepository, CourseRepository>();
 		services.AddScoped<ITeacherRepository, TeacherRepository>();
+		services.AddScoped<IStudentRepository, StudentRepository>();
 
 		services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<TrainingDbContext>());
 

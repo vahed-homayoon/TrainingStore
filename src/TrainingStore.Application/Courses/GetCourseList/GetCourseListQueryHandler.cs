@@ -30,10 +30,10 @@ internal sealed class GetCourseListQueryHandler
 				        Id, 
 				        Name,
 				        Description,
-						CreateBy,
-						CreateDate,
-						UpdateBy,
-						UpdateDate,
+						CreatedBy,
+						CreatedDate,
+						UpdatedBy,
+						UpdatedDate,
 				        COUNT(*) OVER() AS TotalCount
 				    FROM Courses
 				    WHERE (@Name IS NULL OR Name LIKE '%' + @Name + '%')

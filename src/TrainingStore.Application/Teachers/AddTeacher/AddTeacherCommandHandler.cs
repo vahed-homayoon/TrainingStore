@@ -12,10 +12,10 @@ internal sealed class AddTeacherCommandHandler : ICommandHandler<AddTeacherComma
 	private readonly IUnitOfWork _unitOfWork;
 
 	public AddTeacherCommandHandler(
-		ITeacherRepository TeacherRepository,
+		ITeacherRepository teacherRepository,
 		IUnitOfWork unitOfWork)
 	{
-		_teacherRepository = TeacherRepository;
+		_teacherRepository = teacherRepository;
 		_unitOfWork = unitOfWork;
 	}
 

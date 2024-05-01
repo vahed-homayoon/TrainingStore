@@ -18,7 +18,7 @@ public abstract class Person : BaseEntity
 		Phone = phone;
 	}
 
-	public string NationalCode { get; set; }
+	public string NationalCode { get; private set; }
 
 	public string FirstName { get; private set; }
 
@@ -28,7 +28,7 @@ public abstract class Person : BaseEntity
 
 	public string Phone { get; private set; }
 
-	public void Edit(string nationalCode, string firstName, string sureName, string email, string phone)
+	protected void Edit(string nationalCode, string firstName, string sureName, string email, string phone)
 	{
 		NationalCode = nationalCode;
 		FirstName = firstName;

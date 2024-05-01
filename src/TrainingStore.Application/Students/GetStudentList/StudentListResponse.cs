@@ -1,6 +1,6 @@
-﻿namespace TrainingStore.Application.Teachers.GetTeacherList;
+﻿namespace TrainingStore.Application.Students.GetStudentList;
 
-public sealed record TeacherListResponse(
+public sealed record StudentListResponse(
 	int Id,
 	string NationalCode,
 	string FirstName,

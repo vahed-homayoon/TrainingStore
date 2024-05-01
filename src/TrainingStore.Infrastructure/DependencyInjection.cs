@@ -4,8 +4,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Shared.Data;
 using Shared.DbContexts;
 using TrainingStore.Domain.Courses;
+using TrainingStore.Domain.Teachers;
 using TrainingStore.Infrastructure.Data;
-using TrainingStore.Infrastructure.Interceptor;
+using TrainingStore.Infrastructure.Interceptors;
 using TrainingStore.Infrastructure.Repositories;
 
 namespace TrainingStore.Infrastructure;
@@ -31,6 +32,7 @@ public static class DependencyInjection
 					.AddInterceptors(new AuditFieldInterceptor()));
 
 		services.AddScoped<ICourseRepository, CourseRepository>();
+		services.AddScoped<ITeacherRepository, TeacherRepository>();
 
 		services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<TrainingDbContext>());
 

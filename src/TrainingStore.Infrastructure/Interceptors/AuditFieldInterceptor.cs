@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
-namespace TrainingStore.Infrastructure.Interceptor;
+namespace TrainingStore.Infrastructure.Interceptors;
 
 public class AuditFieldInterceptor : SaveChangesInterceptor
 {

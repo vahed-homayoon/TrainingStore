@@ -7,8 +7,8 @@ internal sealed class CourseRepository :
 	GenericRepository<Course>,
 	ICourseRepository
 {
-	public CourseRepository(TrainingDbContext dbContext)
-		: base(dbContext)
+	public CourseRepository(TrainingDbContext dbContext) :
+		base(dbContext)
 	{
 	}
 

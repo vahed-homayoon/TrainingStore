@@ -4,7 +4,7 @@ namespace TrainingStore.Domain.People;
 
 public abstract class Person : BaseEntity
 {
-	public Person(
+	protected Person(
 		string nationalCode,
 		string firstName,
 		string sureName,

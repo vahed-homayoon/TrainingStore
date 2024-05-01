@@ -22,59 +22,44 @@ internal sealed class GetStudentListQueryHandler
 		CancellationToken cancellationToken)
 	{
 		using IDbConnection connection = _sqlConnectionFactory.CreateConnection();
-		try
-		{
-			const string sql = """
-				WITH CTE AS (
-				    SELECT 
-				        Id,
-						NationalCode,
-				        FirstName,
-				        SureName,
-						Email,
-						CreatedBy,
-						CreatedDate,
-						UpdatedBy,
-						UpdatedDate,
-				        COUNT(*) OVER() AS TotalCount
-				    FROM People
-				    WHERE (@NationalCode IS NULL OR NationalCode LIKE '%' + @NationalCode + '%' OR @FirstName IS NULL OR FirstName LIKE '%' + @FirstName + '%' OR @SureName IS NULL OR SureName LIKE '%' + @SureName + '%')
-				)
-				SELECT * 
-				FROM CTE
-				ORDER BY Id
-				OFFSET @PageSize * (@Page - 1) ROWS
-				FETCH NEXT @PageSize ROWS ONLY
-				""";
 
-			int totalCount = 0;
+		const string sql = """
+			SELECT COUNT(Id)
+			FROM People
+			WHERE
+				Type= 'Student'
+				AND (@NationalCode IS NULL OR NationalCode = @NationalCode)
+				AND (@FirstName IS NULL OR FirstName LIKE '%' + @FirstName + '%')
+				AND (@SureName IS NULL OR SureName LIKE '%' + @SureName + '%');
 
-			var result = (await connection.QueryAsync<StudentListResponse, int, StudentListResponse>(sql,
-				(student, count) =>
-				{
-					totalCount = count;
-					return student;
-				},
-				new
-				{
-					request.NationalCode,
-					request.FirstName,
-					request.SureName,
-					request.PageSize,
-					request.Page
-				},
-				splitOn: "TotalCount"
-				)).ToList();
+			SELECT Id, NationalCode, FirstName, SureName, Email, CreatedBy, CreatedDate, UpdatedBy, UpdatedDate
+			FROM People
+			WHERE 
+				Type = 'Student'
+				AND (@NationalCode IS NULL OR NationalCode = @NationalCode)
+				AND (@FirstName IS NULL OR FirstName LIKE '%' + @FirstName + '%')
+				AND (@SureName IS NULL OR SureName LIKE '%' + @SureName + '%')
+			ORDER BY Id
+			OFFSET @PageSize * (@Page - 1) ROWS
+			FETCH NEXT @PageSize ROWS ONLY;
+		""";
 
-			var response = DataGridResponse<StudentListResponse>.Create(result, totalCount);
+		var result = await connection.QueryMultipleAsync(
+			sql,
+			new
+			{
+				request.NationalCode,
+				request.FirstName,
+				request.SureName,
+				request.PageSize,
+				request.Page
+			});
 
-			return Result<DataGridResponse<StudentListResponse>>.Success(response);
+		int totalCount = result.ReadSingle<int>();
+		var students = result.Read<StudentListResponse>();
 
-		}
-		catch (Exception ex)
-		{
+		var response = DataGridResponse<StudentListResponse>.Create(students, totalCount);
 
-			throw;
-		}
+		return Result<DataGridResponse<StudentListResponse>>.Success(response);
 	}
 }

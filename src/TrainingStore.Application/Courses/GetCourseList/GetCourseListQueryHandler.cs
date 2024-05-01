@@ -4,7 +4,6 @@ using Dapper;
 using Shared.DataGrids;
 using Shared.Data;
 using System.Data;
-using Microsoft.EntityFrameworkCore;
 
 namespace TrainingStore.Application.Courses.GetCourseList;
 
@@ -24,46 +23,32 @@ internal sealed class GetCourseListQueryHandler
 	{
 		using IDbConnection connection = _sqlConnectionFactory.CreateConnection();
 
-			const string sql = """
-				WITH CTE AS (
-				    SELECT 
-				        Id, 
-				        Name,
-				        Description,
-						CreatedBy,
-						CreatedDate,
-						UpdatedBy,
-						UpdatedDate,
-				        COUNT(*) OVER() AS TotalCount
-				    FROM Courses
-				    WHERE (@Name IS NULL OR Name LIKE '%' + @Name + '%')
-				)
-				SELECT * 
-				FROM CTE
-				ORDER BY Id
-				OFFSET @PageSize * (@Page - 1) ROWS
-				FETCH NEXT @PageSize ROWS ONLY
-				""";
+		const string sql = """
+			SELECT COUNT(Id)
+			FROM Courses
+			WHERE(@Name IS NULL OR Name LIKE '%' + @Name + '%');
 
-		int totalCount = 0;
+			SELECT Id, Name, Description, CreatedBy, CreatedDate, UpdatedBy, UpdatedDate
+			FROM Courses
+			WHERE(@Name IS NULL OR Name LIKE '%' + @Name + '%')
+			ORDER BY Id
+			OFFSET @PageSize * (@Page - 1) ROWS
+			FETCH NEXT @PageSize ROWS ONLY;
+		""";
 
-		var result = (await connection.QueryAsync<CourseListResponse, int, CourseListResponse>(sql,
-			(course, count) =>
-			{
-				totalCount = count;
-				return course;
-
-			},
+		var result = await connection.QueryMultipleAsync(
+			sql,
 			new
 			{
 				request.Name,
 				request.PageSize,
 				request.Page
-			},
-			splitOn: "TotalCount"
-			)).ToList();
+			});
 
-		var response = DataGridResponse<CourseListResponse>.Create(result, totalCount);
+		int totalCount = result.ReadSingle<int>();
+		var courses = result.Read<CourseListResponse>();
+
+		var response = DataGridResponse<CourseListResponse>.Create(courses, totalCount);
 
 		return Result<DataGridResponse<CourseListResponse>>.Success(response);
 	}

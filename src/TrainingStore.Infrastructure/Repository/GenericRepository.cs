@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shared.Entities;
 
-namespace TrainingStore.Infrastructure.Repositories;
+namespace TrainingStore.Infrastructure.Repository;
 
 internal abstract class GenericRepository<T>
 	where T : BaseEntity

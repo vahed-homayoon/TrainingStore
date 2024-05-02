@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
 using TrainingStore.Domain.People;
 using TrainingStore.Domain.Students;
 using TrainingStore.Domain.Teachers;
+using TrainingStore.Infrastructure.People.Enums;
 
-namespace TrainingStore.Infrastructure.Configurations;
+namespace TrainingStore.Infrastructure.People.Config;
 
-internal sealed class PersonConfiguration : IEntityTypeConfiguration<Person>
+internal sealed class PersonConfig : IEntityTypeConfiguration<Person>
 {
 	public void Configure(EntityTypeBuilder<Person> builder)
 	{
@@ -20,8 +20,7 @@ internal sealed class PersonConfiguration : IEntityTypeConfiguration<Person>
 			.IsUnicode()
 			.HasMaxLength(10)
 			.IsFixedLength()
-			.IsRequired()
-			.HasAnnotation("RegularExpression", @"^\d{10}$");
+			.IsRequired();
 
 		builder
 			.Property(person => person.FirstName)
@@ -41,9 +40,9 @@ internal sealed class PersonConfiguration : IEntityTypeConfiguration<Person>
 			.Property(person => person.Email)
 			.HasMaxLength(50);
 
-		builder.HasDiscriminator<string>("Type")
-		   .HasValue<Person>("Person")
-		   .HasValue<Student>("Student")
-		   .HasValue<Teacher>("Teacher");
+		builder.HasDiscriminator<PersonType>("Type")
+		   .HasValue<Person>(PersonType.Person)
+		   .HasValue<Teacher>(PersonType.Teacher)
+		   .HasValue<Student>(PersonType.Student);
 	}
 }

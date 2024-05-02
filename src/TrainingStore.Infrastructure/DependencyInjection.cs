@@ -6,9 +6,11 @@ using Shared.DbContexts;
 using TrainingStore.Domain.Courses;
 using TrainingStore.Domain.Students;
 using TrainingStore.Domain.Teachers;
+using TrainingStore.Infrastructure.Courses.Repository;
 using TrainingStore.Infrastructure.Data;
 using TrainingStore.Infrastructure.Interceptors;
-using TrainingStore.Infrastructure.Repositories;
+using TrainingStore.Infrastructure.Students.Repository;
+using TrainingStore.Infrastructure.Teachers.Repository;
 
 namespace TrainingStore.Infrastructure;
 

@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TrainingStore.Domain.Teachers;
+using TrainingStore.Infrastructure.Repository;
 
-namespace TrainingStore.Infrastructure.Repositories;
+namespace TrainingStore.Infrastructure.Teachers.Repository;
 
 internal sealed class TeacherRepository :
 	GenericRepository<Teacher>,

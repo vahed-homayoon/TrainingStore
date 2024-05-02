@@ -2,13 +2,13 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using TrainingStore.Domain.Courses;
 
-namespace TrainingStore.Infrastructure.Configurations;
+namespace TrainingStore.Infrastructure.Courses.Config;
 
-internal sealed class CourseConfiguration : IEntityTypeConfiguration<Course>
+internal sealed class CourseConfig : IEntityTypeConfiguration<Course>
 {
-    public void Configure(EntityTypeBuilder<Course> builder)
-    {
-        builder.ToTable("Courses");
+	public void Configure(EntityTypeBuilder<Course> builder)
+	{
+		builder.ToTable("Courses");
 
 		builder.HasKey(course => course.Id);
 

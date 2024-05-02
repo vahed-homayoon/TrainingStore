@@ -95,8 +95,7 @@ namespace TrainingStore.Infrastructure.Migrations
                         .HasMaxLength(10)
                         .IsUnicode(true)
                         .HasColumnType("nchar(10)")
-                        .IsFixedLength()
-                        .HasAnnotation("RegularExpression", "^\\d{10}$");
+                        .IsFixedLength();
 
                     b.Property<string>("Phone")
                         .IsRequired()
@@ -108,10 +107,8 @@ namespace TrainingStore.Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasMaxLength(8)
-                        .HasColumnType("nvarchar(8)");
+                    b.Property<byte>("Type")
+                        .HasColumnType("tinyint");
 
                     b.Property<string>("UpdatedBy")
                         .HasMaxLength(50)
@@ -124,7 +121,7 @@ namespace TrainingStore.Infrastructure.Migrations
 
                     b.ToTable("People", (string)null);
 
-                    b.HasDiscriminator<string>("Type").HasValue("Person");
+                    b.HasDiscriminator<byte>("Type").HasValue((byte)1);
 
                     b.UseTphMappingStrategy();
                 });
@@ -177,7 +174,7 @@ namespace TrainingStore.Infrastructure.Migrations
                 {
                     b.HasBaseType("TrainingStore.Domain.People.Person");
 
-                    b.HasDiscriminator().HasValue("Student");
+                    b.HasDiscriminator().HasValue((byte)3);
                 });
 
             modelBuilder.Entity("TrainingStore.Domain.Teachers.Teacher", b =>
@@ -186,10 +183,10 @@ namespace TrainingStore.Infrastructure.Migrations
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
-                    b.HasDiscriminator().HasValue("Teacher");
+                    b.HasDiscriminator().HasValue((byte)2);
                 });
 
             modelBuilder.Entity("TrainingStore.Domain.Sessions.Session", b =>

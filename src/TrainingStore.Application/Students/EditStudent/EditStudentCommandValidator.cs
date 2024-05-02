@@ -22,6 +22,7 @@ internal sealed class EditStudentCommandValidator : AbstractValidator<EditStuden
 			.MaximumLength(50);
 
 		RuleFor(c => c.Phone)
+			.NotEmpty()
 			.MaximumLength(15);
 
 		RuleFor(c => c.Email)

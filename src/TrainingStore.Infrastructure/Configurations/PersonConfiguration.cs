@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 using TrainingStore.Domain.People;
 using TrainingStore.Domain.Students;
 using TrainingStore.Domain.Teachers;
@@ -12,32 +13,33 @@ internal sealed class PersonConfiguration : IEntityTypeConfiguration<Person>
 	{
 		builder.ToTable("People");
 
-		builder.HasKey(m => m.Id);
+		builder.HasKey(person => person.Id);
 
 		builder
-			.Property(b => b.NationalCode)
+			.Property(person => person.NationalCode)
+			.IsUnicode()
 			.HasMaxLength(10)
-			.IsRequired();
+			.IsFixedLength()
+			.IsRequired()
+			.HasAnnotation("RegularExpression", @"^\d{10}$");
 
 		builder
-			.Property(b => b.FirstName)
+			.Property(person => person.FirstName)
+			.HasMaxLength(50)
+			.IsRequired();
+		builder
+			.Property(person => person.SureName)
 			.HasMaxLength(50)
 			.IsRequired();
 
 		builder
-			.Property(b => b.SureName)
-			.HasMaxLength(50)
-			.IsRequired();
-
-		builder
-			.Property(b => b.Phone)
+			.Property(person => person.Phone)
 			.HasMaxLength(15)
 			.IsRequired();
 
 		builder
-			.Property(b => b.Email)
-			.HasMaxLength(50)
-			.IsRequired();
+			.Property(person => person.Email)
+			.HasMaxLength(50);
 
 		builder.HasDiscriminator<string>("Type")
 		   .HasValue<Person>("Person")

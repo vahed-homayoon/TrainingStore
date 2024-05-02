@@ -6,6 +6,6 @@ public sealed record AddTeacherCommand(
 	string NationalCode,
 	string FirstName,
 	string SureName,
-	string Email,
 	string Phone,
+	string Email,
 	string Address) : ICommand;

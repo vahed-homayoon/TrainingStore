@@ -1,14 +1,14 @@
 ﻿using Shared.Results;
 
-namespace TrainingStore.Domain.Courses;
+namespace TrainingStore.Domain.Teachers;
 
 public static class TeacherErrors
 {
-	public static readonly Error DuplicatedNationalCode = new(
-		"Course.DuplicatedNationalCode",
+	public static readonly Error DuplicateNationalCode = new(
+		"Teacher.DuplicateNationalCode",
 		"کد ملی تکراری هست");
 
 	public static readonly Error NotFound = new(
-		"Course.NotFound",
+		"Teacher.NotFound",
 		"فرد مورد نظر وجود ندارد");
 }

@@ -3,14 +3,14 @@ using Shared.MediatR.Messaging;
 using Shared.Results;
 using TrainingStore.Domain.Students;
 
-namespace TrainingStore.Application.Students.EditStudent;
+namespace TrainingStore.Application.Students.RevertStudentStatus;
 
-internal sealed class EditStudentCommandHandler : ICommandHandler<EditStudentCommand>
+internal sealed class RevertStudentStatusCommandHandler : ICommandHandler<RevertStudentStatusCommand>
 {
 	private readonly IStudentRepository _studentRepository;
 	private readonly IUnitOfWork _unitOfWork;
 
-	public EditStudentCommandHandler(
+	public RevertStudentStatusCommandHandler(
 		IStudentRepository studentRepository,
 		IUnitOfWork unitOfWork)
 	{
@@ -19,16 +19,9 @@ internal sealed class EditStudentCommandHandler : ICommandHandler<EditStudentCom
 	}
 
 	public async Task<Result> Handle(
-		EditStudentCommand request,
+		RevertStudentStatusCommand request,
 		CancellationToken cancellationToken)
 	{
-		var isDuplicateNationalCode = await _studentRepository.IsDuplicateNationalCode(request.Id, request.NationalCode, cancellationToken);
-
-		if (isDuplicateNationalCode)
-		{
-			return Result.Failure(StudentErrors.DuplicateNationalCode);
-		}
-
 		var student = await _studentRepository.FindByIdAsync(request.Id, cancellationToken);
 
 		if (student is null)
@@ -36,12 +29,7 @@ internal sealed class EditStudentCommandHandler : ICommandHandler<EditStudentCom
 			return Result.Failure(StudentErrors.NotFound);
 		}
 
-		student.Edit(
-			request.NationalCode,
-			request.FirstName,
-			request.SureName,
-			request.Phone,
-			request.Email);
+		student.RevertStatus();
 
 		await _unitOfWork.SaveChangesAsync(cancellationToken);
 

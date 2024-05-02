@@ -8,7 +8,7 @@ public interface ITeacherRepository
 
 	Task<Teacher?> FindByIdAsync(int id, CancellationToken cancellationToken = default);
 
-	Task<bool> IsDuplicatedNationalCode(int id, string name, CancellationToken cancellationToken = default);
+	Task<bool> IsDuplicateNationalCode(int id, string name, CancellationToken cancellationToken = default);
 
 	void Add(Teacher course);
 

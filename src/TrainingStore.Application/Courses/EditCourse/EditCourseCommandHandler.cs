@@ -22,11 +22,11 @@ internal sealed class EditCourseCommandHandler : ICommandHandler<EditCourseComma
 		EditCourseCommand request,
 		CancellationToken cancellationToken)
 	{
-		var isDuplicatedName = await _courseRepository.IsDuplicatedName(request.Id, request.Name, cancellationToken);
+		var isDuplicateName = await _courseRepository.IsDuplicateName(request.Id, request.Name, cancellationToken);
 
-		if (isDuplicatedName)
+		if (isDuplicateName)
 		{
-			return Result.Failure(CourseErrors.DuplicatedName);
+			return Result.Failure(CourseErrors.DuplicateName);
 		}
 
 		var course = await _courseRepository.FindByIdAsync(request.Id, cancellationToken);

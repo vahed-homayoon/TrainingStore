@@ -12,7 +12,7 @@ internal sealed class CourseRepository :
 	{
 	}
 
-	public async Task<bool> IsDuplicatedName(
+	public async Task<bool> IsDuplicateName(
 		int id,
 		string name,
 		CancellationToken cancellationToken = default)

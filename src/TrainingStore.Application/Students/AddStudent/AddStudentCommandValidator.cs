@@ -20,6 +20,7 @@ internal sealed class AddStudentCommandValidator : AbstractValidator<AddStudentC
 			.MaximumLength(50);
 
 		RuleFor(c => c.Phone)
+			.NotEmpty()
 			.MaximumLength(15);
 
 		RuleFor(c => c.Email)

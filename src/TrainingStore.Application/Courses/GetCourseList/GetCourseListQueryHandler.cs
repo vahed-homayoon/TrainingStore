@@ -28,7 +28,7 @@ internal sealed class GetCourseListQueryHandler
 			FROM Courses
 			WHERE(@Name IS NULL OR Name LIKE '%' + @Name + '%');
 
-			SELECT Id, Name, Description, CreatedBy, CreatedDate, UpdatedBy, UpdatedDate
+			SELECT Id, Name, Description, IsActive, CreatedBy, CreatedDate, UpdatedBy, UpdatedDate
 			FROM Courses
 			WHERE(@Name IS NULL OR Name LIKE '%' + @Name + '%')
 			ORDER BY Id

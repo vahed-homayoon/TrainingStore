@@ -1,5 +1,4 @@
-﻿using System.Net;
-using TrainingStore.Domain.People;
+﻿using TrainingStore.Domain.People;
 
 namespace TrainingStore.Domain.Students;
 
@@ -9,22 +8,21 @@ public sealed class Student : Person
 		string nationalCode,
 		string firstName,
 		string sureName,
-		string email,
-		string phone)
-			: base(nationalCode, firstName, sureName, email, phone)
+		string phone,
+		string email) :
+			base(nationalCode, firstName, sureName, phone, email)
 	{
-
 	}
 
-	public static Student Create(string nationalCode, string firstName, string sureName, string email, string phone)
+	public static Student Create(string nationalCode, string firstName, string sureName, string phone, string email)
 	{
-		var student = new Student(nationalCode, firstName, sureName, email, phone);
+		var student = new Student(nationalCode, firstName, sureName, phone, email);
 
 		return student;
 	}
 
-	public void Edit(string nationalCode, string firstName, string sureName, string email, string phone)
-	{
-		base.Edit(nationalCode, firstName, sureName, email, phone);
-	}
+	//public void Edit(string nationalCode, string firstName, string sureName, string phone, string email)
+	//{
+	//	base.Edit(nationalCode, firstName, sureName, phone, email);
+	//}
 }

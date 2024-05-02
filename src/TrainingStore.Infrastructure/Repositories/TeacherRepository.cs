@@ -3,16 +3,16 @@ using TrainingStore.Domain.Teachers;
 
 namespace TrainingStore.Infrastructure.Repositories;
 
-internal sealed class TeacherRepository:
+internal sealed class TeacherRepository :
 	GenericRepository<Teacher>,
 	ITeacherRepository
 {
-	public TeacherRepository(TrainingDbContext dbContext)
-		: base(dbContext)
+	public TeacherRepository(TrainingDbContext dbContext) :
+		base(dbContext)
 	{
 	}
 
-	public async Task<bool> IsDuplicatedNationalCode(
+	public async Task<bool> IsDuplicateNationalCode(
 		int id,
 		string nationalCode,
 		CancellationToken cancellationToken = default)

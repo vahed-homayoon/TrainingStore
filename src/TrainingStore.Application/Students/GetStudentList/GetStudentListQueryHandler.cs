@@ -32,7 +32,7 @@ internal sealed class GetStudentListQueryHandler
 				AND (@FirstName IS NULL OR FirstName LIKE '%' + @FirstName + '%')
 				AND (@SureName IS NULL OR SureName LIKE '%' + @SureName + '%');
 
-			SELECT Id, NationalCode, FirstName, SureName, Email, CreatedBy, CreatedDate, UpdatedBy, UpdatedDate
+			SELECT Id, NationalCode, FirstName, SureName, Email, IsActive, CreatedBy, CreatedDate, UpdatedBy, UpdatedDate
 			FROM People
 			WHERE 
 				Type = 'Student'

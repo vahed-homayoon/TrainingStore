@@ -3,14 +3,14 @@ using Shared.MediatR.Messaging;
 using Shared.Results;
 using TrainingStore.Domain.Teachers;
 
-namespace TrainingStore.Application.Teachers.EditTeacher;
+namespace TrainingStore.Application.Teachers.RevertTeacherStatus;
 
-internal sealed class EditTeacherCommandHandler : ICommandHandler<EditTeacherCommand>
+internal sealed class RevertTeacherStatusCommandHandler : ICommandHandler<RevertTeacherStatusCommand>
 {
 	private readonly ITeacherRepository _teacherRepository;
 	private readonly IUnitOfWork _unitOfWork;
 
-	public EditTeacherCommandHandler(
+	public RevertTeacherStatusCommandHandler(
 		ITeacherRepository teacherRepository,
 		IUnitOfWork unitOfWork)
 	{
@@ -19,16 +19,9 @@ internal sealed class EditTeacherCommandHandler : ICommandHandler<EditTeacherCom
 	}
 
 	public async Task<Result> Handle(
-		EditTeacherCommand request,
+		RevertTeacherStatusCommand request,
 		CancellationToken cancellationToken)
 	{
-		var isDuplicateNationalCode = await _teacherRepository.IsDuplicateNationalCode(request.Id, request.NationalCode, cancellationToken);
-
-		if (isDuplicateNationalCode)
-		{
-			return Result.Failure(TeacherErrors.DuplicateNationalCode);
-		}
-
 		var teacher = await _teacherRepository.FindByIdAsync(request.Id, cancellationToken);
 
 		if (teacher is null)
@@ -36,13 +29,7 @@ internal sealed class EditTeacherCommandHandler : ICommandHandler<EditTeacherCom
 			return Result.Failure(TeacherErrors.NotFound);
 		}
 
-		teacher.Edit(
-			request.NationalCode,
-			request.FirstName,
-			request.SureName,
-			request.Phone,
-			request.Email,
-			request.Address);
+		teacher.RevertStatus();
 
 		await _unitOfWork.SaveChangesAsync(cancellationToken);
 

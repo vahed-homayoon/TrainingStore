@@ -8,26 +8,26 @@ public sealed class Teacher : Person
 		string nationalCode,
 		string firstName,
 		string sureName,
-		string email,
 		string phone,
+		string email,
 		string address):
-			base(nationalCode, firstName, sureName, email, phone)
+			base(nationalCode, firstName, sureName, phone, email)
 	{
 		Address = address;
 	}
 
 	public string Address { get; private set; }
 
-	public static Teacher Create(string nationalCode, string firstName, string sureName, string email, string phone, string address)
+	public static Teacher Create(string nationalCode, string firstName, string sureName, string phone, string email, string address)
 	{
-		var teacher = new Teacher(nationalCode, firstName, sureName, email, phone, address);
+		var teacher = new Teacher(nationalCode, firstName, sureName, phone, email, address);
 
 		return teacher;
 	}
 
-	public void Edit(string nationalCode, string firstName, string sureName, string email, string phone, string address)
+	public void Edit(string nationalCode, string firstName, string sureName, string phone, string email, string address)
 	{
-		base.Edit(nationalCode, firstName, sureName, email, phone);
+		base.Edit(nationalCode, firstName, sureName, phone, email);
 		Address = address;
 	}
 }

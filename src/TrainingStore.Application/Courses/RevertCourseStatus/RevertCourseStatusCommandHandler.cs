@@ -3,14 +3,14 @@ using Shared.MediatR.Messaging;
 using Shared.Results;
 using TrainingStore.Domain.Courses;
 
-namespace TrainingStore.Application.Courses.AddCourse;
+namespace TrainingStore.Application.Courses.RevertCourseStatus;
 
-internal sealed class AddCourseCommandHandler : ICommandHandler<AddCourseCommand>
+internal sealed class RevertCourseStatusCommandHandler : ICommandHandler<RevertCourseStatusCommand>
 {
 	private readonly ICourseRepository _courseRepository;
 	private readonly IUnitOfWork _unitOfWork;
 
-	public AddCourseCommandHandler(
+	public RevertCourseStatusCommandHandler(
 		ICourseRepository courseRepository,
 		IUnitOfWork unitOfWork)
 	{
@@ -19,21 +19,17 @@ internal sealed class AddCourseCommandHandler : ICommandHandler<AddCourseCommand
 	}
 
 	public async Task<Result> Handle(
-		AddCourseCommand request,
+		RevertCourseStatusCommand request,
 		CancellationToken cancellationToken)
 	{
-		var isDuplicateName = await _courseRepository.IsDuplicateName(0, request.Name, cancellationToken);
+		var course = await _courseRepository.FindByIdAsync(request.Id, cancellationToken);
 
-		if (isDuplicateName)
+		if (course is null)
 		{
-			return Result.Failure(CourseErrors.DuplicateName);
+			return Result.Failure(CourseErrors.NotFound);
 		}
 
-		var course = Course.Create(
-			request.Name,
-			request.Description);
-
-		_courseRepository.Add(course);
+		course.RevertStatus();
 
 		await _unitOfWork.SaveChangesAsync(cancellationToken);
 

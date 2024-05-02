@@ -22,19 +22,19 @@ internal sealed class AddStudentCommandHandler : ICommandHandler<AddStudentComma
 		AddStudentCommand request,
 		CancellationToken cancellationToken)
 	{
-		var isDuplicatedNationalCode = await _studentRepository.IsDuplicatedNationalCode(0, request.NationalCode, cancellationToken);
+		var isDuplicateNationalCode = await _studentRepository.IsDuplicateNationalCode(0, request.NationalCode, cancellationToken);
 
-		if (isDuplicatedNationalCode)
+		if (isDuplicateNationalCode)
 		{
-			return Result.Failure(StudentErrors.DuplicatedNationalCode);
+			return Result.Failure(StudentErrors.DuplicateNationalCode);
 		}
 
 		var student = Student.Create(
 			request.NationalCode,
 			request.FirstName,
 			request.SureName,
-			request.Email,
-			request.Phone);
+			request.Phone,
+			request.Email);
 
 		_studentRepository.Add(student);
 

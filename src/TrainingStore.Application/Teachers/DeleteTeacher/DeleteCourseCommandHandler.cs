@@ -1,7 +1,6 @@
 ﻿using Shared.DbContexts;
 using Shared.MediatR.Messaging;
 using Shared.Results;
-using TrainingStore.Domain.Courses;
 using TrainingStore.Domain.Teachers;
 
 namespace TrainingStore.Application.Teachers.DeleteTeacher;

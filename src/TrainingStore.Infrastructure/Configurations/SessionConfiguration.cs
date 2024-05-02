@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TrainingStore.Domain.Session;
+using TrainingStore.Domain.Sessions;
+using TrainingStore.Domain.Teachers;
 
 namespace TrainingStore.Infrastructure.Configurations;
 
@@ -10,10 +11,15 @@ internal sealed class SessionConfiguration : IEntityTypeConfiguration<Session>
     {
         builder.ToTable("Sessions");
 
-		builder.HasKey(m => m.Id);
+		builder.HasKey(session => session.Id);
 
 		builder
-			.Property(b => b.StartDate)
+			.Property(session => session.StartDate)
 			.IsRequired();
+
+		//builder
+		//	.HasOne(s => s.Teacher)
+		//	.WithOne()
+		//	.HasForeignKey<Session>(session => session.TeacherId);
 	}
 }

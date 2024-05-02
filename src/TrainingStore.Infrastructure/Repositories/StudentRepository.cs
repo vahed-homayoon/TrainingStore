@@ -7,18 +7,18 @@ internal sealed class StudentRepository :
 	GenericRepository<Student>,
 	IStudentRepository
 {
-	public StudentRepository(TrainingDbContext dbContext)
-		: base(dbContext)
+	public StudentRepository(TrainingDbContext dbContext) :
+		base(dbContext)
 	{
 	}
 
-	public async Task<bool> IsDuplicatedNationalCode(
+	public async Task<bool> IsDuplicateNationalCode(
 		int id,
 		string nationalCode,
 		CancellationToken cancellationToken = default)
 	{
 		return await DbContext
 			.Set<Student>()
-			.AnyAsync(tacher => tacher.Id != id && tacher.NationalCode == nationalCode, cancellationToken);
+			.AnyAsync(student => student.Id != id && student.NationalCode == nationalCode, cancellationToken);
 	}
 }

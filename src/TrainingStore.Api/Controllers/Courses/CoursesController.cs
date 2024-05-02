@@ -8,6 +8,7 @@ using TrainingStore.Application.Courses.DeleteCourse;
 using TrainingStore.Application.Courses.EditCourse;
 using TrainingStore.Application.Courses.GetCourseById;
 using TrainingStore.Application.Courses.GetCourseList;
+using TrainingStore.Application.Courses.RevertCourseStatus;
 
 namespace TrainingStore.Api.Controllers.Courses
 {
@@ -59,6 +60,16 @@ namespace TrainingStore.Api.Controllers.Courses
 		public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
 		{
 			var command = new DeleteCourseCommand(id);
+
+			Result result = await _sender.Send(command, cancellationToken);
+
+			return ResponseResult(result);
+		}
+
+		[HttpPatch("RevertStatus")]
+		public async Task<IActionResult> RevertStatus(int id, CancellationToken cancellationToken)
+		{
+			var command = new RevertCourseStatusCommand(id);
 
 			Result result = await _sender.Send(command, cancellationToken);
 

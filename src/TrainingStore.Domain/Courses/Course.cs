@@ -10,10 +10,12 @@ public sealed class Course : BaseEntity
 	{
 		Name = name;
 		Description = description;
+		IsActive = true;
 	}
 
 	public string Name { get; private set; }
 	public string Description { get; private set; }
+	public bool IsActive { get; private set; }
 
 	public static Course Create(string name, string description)
 	{
@@ -26,5 +28,10 @@ public sealed class Course : BaseEntity
 	{
 		Name = name;
 		Description = description;
+	}
+
+	public void RevertStatus()
+	{
+		IsActive = !IsActive;
 	}
 }

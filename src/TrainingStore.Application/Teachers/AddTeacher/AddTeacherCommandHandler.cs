@@ -1,7 +1,6 @@
 ﻿using Shared.DbContexts;
 using Shared.MediatR.Messaging;
 using Shared.Results;
-using TrainingStore.Domain.Courses;
 using TrainingStore.Domain.Teachers;
 
 namespace TrainingStore.Application.Teachers.AddTeacher;
@@ -23,19 +22,19 @@ internal sealed class AddTeacherCommandHandler : ICommandHandler<AddTeacherComma
 		AddTeacherCommand request,
 		CancellationToken cancellationToken)
 	{
-		var isDuplicatedNationalCode = await _teacherRepository.IsDuplicatedNationalCode(0, request.NationalCode, cancellationToken);
+		var isDuplicateNationalCode = await _teacherRepository.IsDuplicateNationalCode(0, request.NationalCode, cancellationToken);
 
-		if (isDuplicatedNationalCode)
+		if (isDuplicateNationalCode)
 		{
-			return Result.Failure(TeacherErrors.DuplicatedNationalCode);
+			return Result.Failure(TeacherErrors.DuplicateNationalCode);
 		}
 
 		var teacher = Teacher.Create(
 			request.NationalCode,
 			request.FirstName,
 			request.SureName,
-			request.Email,
 			request.Phone,
+			request.Email,
 			request.Address);
 
 		_teacherRepository.Add(teacher);

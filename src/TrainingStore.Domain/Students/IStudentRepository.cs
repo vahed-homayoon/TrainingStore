@@ -1,6 +1,4 @@
-﻿using Shared.DataGrids;
-
-namespace TrainingStore.Domain.Students;
+﻿namespace TrainingStore.Domain.Students;
 
 public interface IStudentRepository
 {
@@ -8,7 +6,7 @@ public interface IStudentRepository
 
 	Task<Student?> FindByIdAsync(int id, CancellationToken cancellationToken = default);
 
-	Task<bool> IsDuplicatedNationalCode(int id, string name, CancellationToken cancellationToken = default);
+	Task<bool> IsDuplicateNationalCode(int id, string name, CancellationToken cancellationToken = default);
 
 	void Add(Student course);
 

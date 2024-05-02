@@ -8,14 +8,15 @@ public abstract class Person : BaseEntity
 		string nationalCode,
 		string firstName,
 		string sureName,
-		string email,
-		string phone)
+		string phone,
+		string? email)
 	{
 		NationalCode = nationalCode;
 		FirstName = firstName;
 		SureName = sureName;
-		Email = email;
 		Phone = phone;
+		Email = email;
+		IsActive = true;
 	}
 
 	public string NationalCode { get; private set; }
@@ -24,16 +25,23 @@ public abstract class Person : BaseEntity
 
 	public string SureName { get; private set; }
 
-	public string Email { get; private set; }
-
 	public string Phone { get; private set; }
 
-	protected void Edit(string nationalCode, string firstName, string sureName, string email, string phone)
+	public string? Email { get; private set; }
+
+    public bool IsActive { get; set; }
+
+	public void Edit(string nationalCode, string firstName, string sureName, string phone, string email)
 	{
 		NationalCode = nationalCode;
 		FirstName = firstName;
 		SureName = sureName;
-		Email = email;
 		Phone = phone;
+		Email = email;
+	}
+
+	public void RevertStatus()
+	{
+		IsActive = !IsActive;
 	}
 }

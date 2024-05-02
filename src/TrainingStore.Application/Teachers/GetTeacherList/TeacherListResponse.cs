@@ -6,6 +6,7 @@ public sealed record TeacherListResponse(
 	string FirstName,
 	string SureName,
 	string Email,
+	bool IsActive,
 	string? CreatedBy,
 	DateTime? CreatedDate,
 	string? UpdatedBy,

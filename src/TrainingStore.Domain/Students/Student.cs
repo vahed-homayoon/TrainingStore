@@ -3,7 +3,7 @@ using TrainingStore.Domain.People;
 
 namespace TrainingStore.Domain.Students;
 
-public class Student : Person
+public sealed class Student : Person
 {
 	private Student(
 		string nationalCode,

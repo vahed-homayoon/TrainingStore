@@ -2,7 +2,7 @@
 
 namespace TrainingStore.Domain.Teachers;
 
-public class Teacher : Person
+public sealed class Teacher : Person
 {
 	private Teacher(
 		string nationalCode,
@@ -10,8 +10,8 @@ public class Teacher : Person
 		string sureName,
 		string email,
 		string phone,
-		string address)
-			: base(nationalCode, firstName, sureName, email, phone)
+		string address):
+			base(nationalCode, firstName, sureName, email, phone)
 	{
 		Address = address;
 	}

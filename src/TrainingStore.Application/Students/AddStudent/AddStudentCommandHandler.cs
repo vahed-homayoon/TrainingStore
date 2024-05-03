@@ -1,19 +1,23 @@
 ﻿using Shared.DbContexts;
 using Shared.MediatR.Messaging;
 using Shared.Results;
+using TrainingStore.Domain.People;
 using TrainingStore.Domain.Students;
 
 namespace TrainingStore.Application.Students.AddStudent;
 
 internal sealed class AddStudentCommandHandler : ICommandHandler<AddStudentCommand>
 {
+	private readonly IPersonRepository _personRepository;
 	private readonly IStudentRepository _studentRepository;
 	private readonly IUnitOfWork _unitOfWork;
 
 	public AddStudentCommandHandler(
+		IPersonRepository personRepository,
 		IStudentRepository studentRepository,
 		IUnitOfWork unitOfWork)
 	{
+		_personRepository = personRepository;
 		_studentRepository = studentRepository;
 		_unitOfWork = unitOfWork;
 	}
@@ -22,7 +26,7 @@ internal sealed class AddStudentCommandHandler : ICommandHandler<AddStudentComma
 		AddStudentCommand request,
 		CancellationToken cancellationToken)
 	{
-		var isDuplicateNationalCode = await _studentRepository.IsDuplicateNationalCode(0, request.NationalCode, cancellationToken);
+		var isDuplicateNationalCode = await _personRepository.IsDuplicateNationalCode(0, request.NationalCode, cancellationToken);
 
 		if (isDuplicateNationalCode)
 		{

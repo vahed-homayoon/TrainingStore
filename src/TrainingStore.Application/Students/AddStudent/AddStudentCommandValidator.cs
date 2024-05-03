@@ -25,6 +25,9 @@ internal sealed class AddStudentCommandValidator : AbstractValidator<AddStudentC
 
 		RuleFor(c => c.Email)
 			.EmailAddress()
-			.MaximumLength(50);	
+			.MaximumLength(50);
+
+		RuleFor(c => c.BirthDate)
+			.NotEmpty();
 	}
 }

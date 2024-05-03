@@ -33,6 +33,7 @@ internal sealed class AddStudentCommandHandler : ICommandHandler<AddStudentComma
 			request.NationalCode,
 			request.FirstName,
 			request.SureName,
+			request.BirthDate,
 			request.Phone,
 			request.Email);
 

@@ -12,8 +12,8 @@ using TrainingStore.Infrastructure;
 namespace TrainingStore.Infrastructure.Migrations
 {
     [DbContext(typeof(TrainingDbContext))]
-    [Migration("20240502165221_V2024_05_02_2022")]
-    partial class V2024_05_02_2022
+    [Migration("20240503152041_V2024_05_03_1850")]
+    partial class V2024_05_03_1850
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,7 +43,8 @@ namespace TrainingStore.Infrastructure.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -124,7 +125,7 @@ namespace TrainingStore.Infrastructure.Migrations
 
                     b.ToTable("People", (string)null);
 
-                    b.HasDiscriminator<byte>("Type").HasValue((byte)1);
+                    b.HasDiscriminator<byte>("Type");
 
                     b.UseTphMappingStrategy();
                 });
@@ -177,7 +178,10 @@ namespace TrainingStore.Infrastructure.Migrations
                 {
                     b.HasBaseType("TrainingStore.Domain.People.Person");
 
-                    b.HasDiscriminator().HasValue((byte)3);
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasDiscriminator().HasValue((byte)2);
                 });
 
             modelBuilder.Entity("TrainingStore.Domain.Teachers.Teacher", b =>
@@ -189,7 +193,7 @@ namespace TrainingStore.Infrastructure.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.HasDiscriminator().HasValue((byte)2);
+                    b.HasDiscriminator().HasValue((byte)1);
                 });
 
             modelBuilder.Entity("TrainingStore.Domain.Sessions.Session", b =>

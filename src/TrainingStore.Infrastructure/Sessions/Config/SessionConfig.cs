@@ -16,10 +16,5 @@ internal sealed class SessionConfig : IEntityTypeConfiguration<Session>
 		builder
 			.Property(session => session.StartDate)
 			.IsRequired();
-
-		//builder
-		//	.HasOne(s => s.Teacher)
-		//	.WithOne()
-		//	.HasForeignKey<Session>(session => session.TeacherId);
 	}
 }

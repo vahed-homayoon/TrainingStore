@@ -2,7 +2,6 @@
 
 public enum PersonType : byte
 {
-	Person = 1,
-	Teacher = 2,
-	Student = 3
+	Teacher = 1,
+	Student = 2
 }

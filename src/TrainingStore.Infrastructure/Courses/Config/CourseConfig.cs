@@ -17,9 +17,13 @@ internal sealed class CourseConfig : IEntityTypeConfiguration<Course>
 			.HasMaxLength(50)
 			.IsRequired();
 
-		//builder
-		//	.Property(course => course.Description)
-		//	.HasMaxLength(200)
-		//	.IsRequired();
+		builder
+			.Property(course => course.Description)
+			.HasMaxLength(200)
+			.IsRequired();
+
+		builder
+			.Property(course => course.IsActive)
+			.IsRequired();
 	}
 }

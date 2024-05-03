@@ -40,7 +40,8 @@ namespace TrainingStore.Infrastructure.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -121,7 +122,7 @@ namespace TrainingStore.Infrastructure.Migrations
 
                     b.ToTable("People", (string)null);
 
-                    b.HasDiscriminator<byte>("Type").HasValue((byte)1);
+                    b.HasDiscriminator<byte>("Type");
 
                     b.UseTphMappingStrategy();
                 });
@@ -174,7 +175,10 @@ namespace TrainingStore.Infrastructure.Migrations
                 {
                     b.HasBaseType("TrainingStore.Domain.People.Person");
 
-                    b.HasDiscriminator().HasValue((byte)3);
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasDiscriminator().HasValue((byte)2);
                 });
 
             modelBuilder.Entity("TrainingStore.Domain.Teachers.Teacher", b =>
@@ -186,7 +190,7 @@ namespace TrainingStore.Infrastructure.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.HasDiscriminator().HasValue((byte)2);
+                    b.HasDiscriminator().HasValue((byte)1);
                 });
 
             modelBuilder.Entity("TrainingStore.Domain.Sessions.Session", b =>

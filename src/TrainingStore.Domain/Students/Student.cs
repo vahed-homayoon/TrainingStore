@@ -8,21 +8,27 @@ public sealed class Student : Person
 		string nationalCode,
 		string firstName,
 		string sureName,
+		DateTime birthDate,
 		string phone,
 		string email) :
 			base(nationalCode, firstName, sureName, phone, email)
 	{
+		BirthDate = birthDate;
 	}
 
-	public static Student Create(string nationalCode, string firstName, string sureName, string phone, string email)
+	public DateTime BirthDate { get; set; }
+
+	public static Student Create(string nationalCode, string firstName, string sureName, DateTime birthDate, string phone, string email)
 	{
-		var student = new Student(nationalCode, firstName, sureName, phone, email);
+		var student = new Student(nationalCode, firstName, sureName, birthDate, phone, email);
 
 		return student;
 	}
 
-	//public void Edit(string nationalCode, string firstName, string sureName, string phone, string email)
-	//{
-	//	base.Edit(nationalCode, firstName, sureName, phone, email);
-	//}
+	public void Edit(string nationalCode, string firstName, string sureName, DateTime birthDate, string phone, string email)
+	{
+		BirthDate = birthDate;
+
+		base.Edit(nationalCode, firstName, sureName, phone, email);
+	}
 }

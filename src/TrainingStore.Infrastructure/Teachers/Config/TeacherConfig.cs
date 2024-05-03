@@ -11,9 +11,5 @@ internal sealed class TeacherConfig : IEntityTypeConfiguration<Teacher>
 		builder
 			.Property(teacher => teacher.Address)
 			.HasMaxLength(200);
-
-		//builder.HasOne<Session>()
-		//  .WithMany()
-		//  .HasForeignKey(teacher => teacher.Id);
 	}
 }

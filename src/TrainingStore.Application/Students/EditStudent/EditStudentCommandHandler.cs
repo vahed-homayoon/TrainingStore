@@ -40,6 +40,7 @@ internal sealed class EditStudentCommandHandler : ICommandHandler<EditStudentCom
 			request.NationalCode,
 			request.FirstName,
 			request.SureName,
+			request.BirthDate,
 			request.Phone,
 			request.Email);
 

@@ -7,5 +7,6 @@ public sealed record EditStudentCommand(
 	string NationalCode,
 	string FirstName,
 	string SureName,
+	DateTime BirthDate,
 	string Phone,
 	string Email) : ICommand;

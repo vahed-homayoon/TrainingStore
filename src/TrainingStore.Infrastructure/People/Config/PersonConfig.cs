@@ -41,7 +41,6 @@ internal sealed class PersonConfig : IEntityTypeConfiguration<Person>
 			.HasMaxLength(50);
 
 		builder.HasDiscriminator<PersonType>("Type")
-		   .HasValue<Person>(PersonType.Person)
 		   .HasValue<Teacher>(PersonType.Teacher)
 		   .HasValue<Student>(PersonType.Student);
 	}

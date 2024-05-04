@@ -29,7 +29,7 @@ public abstract class Person : BaseEntity
 
 	public string? Email { get; private set; }
 
-    public bool IsActive { get; set; }
+    public bool IsActive { get; private set; }
 
 	public void Edit(string nationalCode, string firstName, string sureName, string phone, string email)
 	{

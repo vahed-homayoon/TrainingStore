@@ -12,8 +12,8 @@ using TrainingStore.Infrastructure.Data;
 namespace TrainingStore.Infrastructure.Migrations
 {
     [DbContext(typeof(TrainingDbContext))]
-    [Migration("20240504175803_V2024_05_04_2127")]
-    partial class V2024_05_04_2127
+    [Migration("20240504200835_V2024_05_04_2338")]
+    partial class V2024_05_04_2338
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

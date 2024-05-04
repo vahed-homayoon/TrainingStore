@@ -7,14 +7,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TrainingStore.Infrastructure.Data;
 
-
 #nullable disable
 
 namespace TrainingStore.Infrastructure.Migrations
 {
-	[DbContext(typeof(TrainingDbContext))]
-    [Migration("20240504050232_V2024_05_04_0832")]
-    partial class V2024_05_04_0832
+    [DbContext(typeof(TrainingDbContext))]
+    [Migration("20240504175803_V2024_05_04_2127")]
+    partial class V2024_05_04_2127
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,56 +24,6 @@ namespace TrainingStore.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("TrainingStore.Domain.CourseSchedules.CourseSchedule", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CourseId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("FromHour")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("TeacherId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("ToHour")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CourseId");
-
-                    b.HasIndex("TeacherId");
-
-                    b.ToTable("CourseSchedules", (string)null);
-                });
 
             modelBuilder.Entity("TrainingStore.Domain.Courses.Course", b =>
                 {
@@ -181,6 +130,56 @@ namespace TrainingStore.Infrastructure.Migrations
                     b.UseTphMappingStrategy();
                 });
 
+            modelBuilder.Entity("TrainingStore.Domain.TeacherCourses.TeacherCourse", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<TimeSpan>("FromHour")
+                        .HasColumnType("time");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("TeacherId")
+                        .HasColumnType("int");
+
+                    b.Property<TimeSpan>("ToHour")
+                        .HasColumnType("time");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("TeacherCourses", (string)null);
+                });
+
             modelBuilder.Entity("TrainingStore.Domain.Students.Student", b =>
                 {
                     b.HasBaseType("TrainingStore.Domain.People.Person");
@@ -203,7 +202,7 @@ namespace TrainingStore.Infrastructure.Migrations
                     b.HasDiscriminator().HasValue((byte)1);
                 });
 
-            modelBuilder.Entity("TrainingStore.Domain.CourseSchedules.CourseSchedule", b =>
+            modelBuilder.Entity("TrainingStore.Domain.TeacherCourses.TeacherCourse", b =>
                 {
                     b.HasOne("TrainingStore.Domain.Courses.Course", "Course")
                         .WithMany()

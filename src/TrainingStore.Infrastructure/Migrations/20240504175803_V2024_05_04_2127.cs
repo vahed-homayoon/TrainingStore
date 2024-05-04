@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TrainingStore.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class V2024_05_04_0832 : Migration
+    public partial class V2024_05_04_2127 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -56,15 +56,15 @@ namespace TrainingStore.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CourseSchedules",
+                name: "TeacherCourses",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FromHour = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ToHour = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FromHour = table.Column<TimeSpan>(type: "time", nullable: false),
+                    ToHour = table.Column<TimeSpan>(type: "time", nullable: false),
                     CourseId = table.Column<int>(type: "int", nullable: false),
                     TeacherId = table.Column<int>(type: "int", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
@@ -74,15 +74,15 @@ namespace TrainingStore.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CourseSchedules", x => x.Id);
+                    table.PrimaryKey("PK_TeacherCourses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CourseSchedules_Courses_CourseId",
+                        name: "FK_TeacherCourses_Courses_CourseId",
                         column: x => x.CourseId,
                         principalTable: "Courses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CourseSchedules_People_TeacherId",
+                        name: "FK_TeacherCourses_People_TeacherId",
                         column: x => x.TeacherId,
                         principalTable: "People",
                         principalColumn: "Id",
@@ -90,13 +90,13 @@ namespace TrainingStore.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CourseSchedules_CourseId",
-                table: "CourseSchedules",
+                name: "IX_TeacherCourses_CourseId",
+                table: "TeacherCourses",
                 column: "CourseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CourseSchedules_TeacherId",
-                table: "CourseSchedules",
+                name: "IX_TeacherCourses_TeacherId",
+                table: "TeacherCourses",
                 column: "TeacherId");
         }
 
@@ -104,7 +104,7 @@ namespace TrainingStore.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CourseSchedules");
+                name: "TeacherCourses");
 
             migrationBuilder.DropTable(
                 name: "Courses");

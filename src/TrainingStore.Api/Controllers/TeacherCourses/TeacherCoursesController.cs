@@ -3,28 +3,28 @@ using Microsoft.AspNetCore.Mvc;
 using Shared.DataGrids;
 using Shared.Results;
 using TrainingStore.Api.Controllers.Base;
-using TrainingStore.Application.CourseSchedules.AddCourseSchedule;
+using TrainingStore.Application.TeacherCourses.AddTeacherCourse;
+using TrainingStore.Application.TeacherCourses.GetTeacherCourseList;
 
-
-namespace TrainingStore.Api.Controllers.CourseSchedules
+namespace TrainingStore.Api.Controllers.TeacherCourses
 {
-	[Route("api/CourseSchedules")]
-	public class CourseSchedulesController : BaseController
+	[Route("api/TeacherCourses")]
+	public class TeacherCoursesController : BaseController
 	{
 		private readonly ISender _sender;
 
-		public CourseSchedulesController(ISender sender)
+		public TeacherCoursesController(ISender sender)
 		{
 			_sender = sender;
 		}
 
-		//[HttpGet("List")]
-		//public async Task<IActionResult> GetList([FromQuery] GetCourseListQuery query, CancellationToken cancellationToken)
-		//{
-		//	Result<DataGridResponse<CourseListResponse>> result = await _sender.Send(query, cancellationToken);
+		[HttpGet("List")]
+		public async Task<IActionResult> GetList([FromQuery] GetTeacherCourseListQuery query, CancellationToken cancellationToken)
+		{
+			Result<DataGridResponse<TeacherCourseListResponse>> result = await _sender.Send(query, cancellationToken);
 
-		//	return ResponseResult(result);
-		//}
+			return ResponseResult(result);
+		}
 
 		//[HttpGet("{id:int}")]
 		//public async Task<IActionResult> GetById(int id, CancellationToken cancellationToken)
@@ -37,8 +37,9 @@ namespace TrainingStore.Api.Controllers.CourseSchedules
 		//}
 
 		[HttpPost]
-		public async Task<IActionResult> Add([FromBody] AddCourseScheduleCommand command, CancellationToken cancellationToken)
+		public async Task<IActionResult> Add([FromBody] AddTeacherCourseCommand command, CancellationToken cancellationToken)
 		{
+			//{00:00:00}
 			Result result = await _sender.Send(command, cancellationToken);
 
 			return ResponseResult(result);

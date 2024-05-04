@@ -1,16 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TrainingStore.Domain.CourseSchedules;
 using TrainingStore.Domain.People;
+using TrainingStore.Domain.TeacherCourses;
 using TrainingStore.Infrastructure.Data;
 using TrainingStore.Infrastructure.GenericRepository;
 
-namespace TrainingStore.Infrastructure.CourseSchedules.Repository;
+namespace TrainingStore.Infrastructure.TeacherCourses.Repository;
 
-internal sealed class CourseScheduleRepository :
-	GenericRepository<CourseSchedule>,
-	ICourseScheduleRepository
+internal sealed class TeacherCourseRepository :
+	GenericRepository<TeacherCourse>,
+	ITeacherCourseRepository
 {
-	public CourseScheduleRepository(TrainingDbContext dbContext) :
+	public TeacherCourseRepository(TrainingDbContext dbContext) :
 		base(dbContext)
 	{
 	}

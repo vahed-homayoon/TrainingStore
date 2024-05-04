@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
 
-namespace TrainingStore.Application.CourseSchedules.AddCourseSchedule;
+namespace TrainingStore.Application.TeacherCourses.AddTeacherCourse;
 
-internal sealed class AddCourseScheduleCommandValidator : AbstractValidator<AddCourseScheduleCommand>
+internal sealed class AddTeacherCourseCommandValidator : AbstractValidator<AddTeacherCourseCommand>
 {
-	public AddCourseScheduleCommandValidator()
+	public AddTeacherCourseCommandValidator()
 	{
 		RuleFor(c => c.CourseId)
 			.NotEmpty();

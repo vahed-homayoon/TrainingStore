@@ -4,15 +4,15 @@ using Microsoft.Extensions.DependencyInjection;
 using Shared.Data;
 using Shared.DbContexts;
 using TrainingStore.Domain.Courses;
-using TrainingStore.Domain.CourseSchedules;
 using TrainingStore.Domain.People;
 using TrainingStore.Domain.Students;
+using TrainingStore.Domain.TeacherCourses;
 using TrainingStore.Domain.Teachers;
 using TrainingStore.Infrastructure.Courses.Repository;
-using TrainingStore.Infrastructure.CourseSchedules.Repository;
 using TrainingStore.Infrastructure.Data;
 using TrainingStore.Infrastructure.People.Repository;
 using TrainingStore.Infrastructure.Students.Repository;
+using TrainingStore.Infrastructure.TeacherCourses.Repository;
 using TrainingStore.Infrastructure.Teachers.Repository;
 
 namespace TrainingStore.Infrastructure;
@@ -41,7 +41,7 @@ public static class DependencyInjection
 		services.AddScoped<ITeacherRepository, TeacherRepository>();
 		services.AddScoped<IStudentRepository, StudentRepository>();
 		services.AddScoped<IPersonRepository, PersonRepository>();
-		services.AddScoped<ICourseScheduleRepository, CourseScheduleRepository>();
+		services.AddScoped<ITeacherCourseRepository, TeacherCourseRepository>();
 	
 		services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<TrainingDbContext>());
 

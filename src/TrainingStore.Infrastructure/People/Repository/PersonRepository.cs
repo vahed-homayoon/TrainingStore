@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TrainingStore.Domain.People;
 using TrainingStore.Infrastructure.Data;
-using TrainingStore.Infrastructure.Repository;
+using TrainingStore.Infrastructure.GenericRepository;
 
 namespace TrainingStore.Infrastructure.People.Repository;
 

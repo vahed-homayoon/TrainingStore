@@ -2,7 +2,7 @@
 using Shared.Entities;
 using TrainingStore.Infrastructure.Data;
 
-namespace TrainingStore.Infrastructure.Repository;
+namespace TrainingStore.Infrastructure.GenericRepository;
 
 internal abstract class GenericRepository<T>
 	where T : BaseEntity

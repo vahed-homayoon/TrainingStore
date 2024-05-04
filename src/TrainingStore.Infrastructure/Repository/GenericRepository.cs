@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shared.Entities;
+using TrainingStore.Infrastructure.Data;
 
 namespace TrainingStore.Infrastructure.Repository;
 

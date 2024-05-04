@@ -1,4 +1,5 @@
 ﻿using TrainingStore.Domain.Teachers;
+using TrainingStore.Infrastructure.Data;
 using TrainingStore.Infrastructure.Repository;
 
 namespace TrainingStore.Infrastructure.Teachers.Repository;

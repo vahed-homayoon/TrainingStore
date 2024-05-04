@@ -12,7 +12,8 @@ public sealed class CourseSchedule : BaseEntity
 		DateTime startDate,
 		DateTime endDate,
 		DateTime fromHour,
-		DateTime toHour)
+		DateTime toHour,
+		List<DayOfWeek> weekDays)
 	{
 		CourseId = courseId;
 		TeacherId = teacherId;
@@ -20,6 +21,7 @@ public sealed class CourseSchedule : BaseEntity
 		EndDate = endDate;
 		FromHour = fromHour;
 		ToHour = toHour;
+		WeekDays = weekDays;
 	}
 
 	public DateTime StartDate { get; private set; }
@@ -30,6 +32,8 @@ public sealed class CourseSchedule : BaseEntity
 
 	public DateTime ToHour { get; private set; }
 
+	public List<DayOfWeek> WeekDays { get; private set; }
+
 	public int CourseId { get; private set; }
 
 	public Course Course { get; private set; }
@@ -38,14 +42,14 @@ public sealed class CourseSchedule : BaseEntity
 
 	public Teacher Teacher { get; private set; }
 
-	public static CourseSchedule Create(int courseId, int teacherId, DateTime startDate, DateTime endDate, DateTime fromHour, DateTime toHour)
+	public static CourseSchedule Create(int courseId, int teacherId, DateTime startDate, DateTime endDate, DateTime fromHour, DateTime toHour, List<DayOfWeek> weekDays)
 	{
-		var courseSchedule = new CourseSchedule(courseId, teacherId, startDate, endDate, fromHour, toHour);
+		var courseSchedule = new CourseSchedule(courseId, teacherId, startDate, endDate, fromHour, toHour, weekDays);
 
 		return courseSchedule;
 	}
 
-	public void Edit(int courseId, int teacherId, DateTime startDate, DateTime endDate, DateTime fromHour, DateTime toHour)
+	public void Edit(int courseId, int teacherId, DateTime startDate, DateTime endDate, DateTime fromHour, DateTime toHour, List<DayOfWeek> weekDays)
 	{
 		CourseId = courseId;
 		TeacherId = teacherId;
@@ -53,5 +57,6 @@ public sealed class CourseSchedule : BaseEntity
 		EndDate = endDate;
 		FromHour = fromHour;
 		ToHour = toHour;
+		WeekDays = weekDays;
 	}
 }

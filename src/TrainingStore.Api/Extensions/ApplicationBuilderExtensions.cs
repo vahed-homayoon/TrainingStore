@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TrainingStore.Api.Middleware;
-using TrainingStore.Infrastructure;
+using TrainingStore.Infrastructure.Data;
 
 namespace TrainingStore.Api.Extensions;
 

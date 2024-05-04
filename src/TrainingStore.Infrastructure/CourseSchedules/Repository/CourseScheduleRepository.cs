@@ -1,20 +1,21 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TrainingStore.Domain.CourseSchedules;
 using TrainingStore.Domain.People;
 using TrainingStore.Infrastructure.Data;
 using TrainingStore.Infrastructure.Repository;
 
-namespace TrainingStore.Infrastructure.People.Repository;
+namespace TrainingStore.Infrastructure.CourseSchedules.Repository;
 
-internal sealed class PersonRepository :
-	GenericRepository<Person>,
-	IPersonRepository
+internal sealed class CourseScheduleRepository :
+	GenericRepository<CourseSchedule>,
+	ICourseScheduleRepository
 {
-	public PersonRepository(TrainingDbContext dbContext) :
+	public CourseScheduleRepository(TrainingDbContext dbContext) :
 		base(dbContext)
 	{
 	}
 
-	public async Task<bool> IsDuplicateNationalCode(
+	public async Task<bool> IsDuplicateName(
 		int id,
 		string nationalCode,
 		CancellationToken cancellationToken = default)

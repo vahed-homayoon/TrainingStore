@@ -5,13 +5,14 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using TrainingStore.Infrastructure;
+using TrainingStore.Infrastructure.Data;
+
 
 #nullable disable
 
 namespace TrainingStore.Infrastructure.Migrations
 {
-    [DbContext(typeof(TrainingDbContext))]
+	[DbContext(typeof(TrainingDbContext))]
     [Migration("20240504050232_V2024_05_04_0832")]
     partial class V2024_05_04_0832
     {

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TrainingStore.Domain.Courses;
+using TrainingStore.Infrastructure.Data;
 using TrainingStore.Infrastructure.Repository;
 
 namespace TrainingStore.Infrastructure.Courses.Repository;

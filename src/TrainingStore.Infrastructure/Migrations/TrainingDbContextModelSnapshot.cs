@@ -4,13 +4,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using TrainingStore.Infrastructure;
+using TrainingStore.Infrastructure.Data;
+
 
 #nullable disable
 
 namespace TrainingStore.Infrastructure.Migrations
 {
-    [DbContext(typeof(TrainingDbContext))]
+	[DbContext(typeof(TrainingDbContext))]
     partial class TrainingDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

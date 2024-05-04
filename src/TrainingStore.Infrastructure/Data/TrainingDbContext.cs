@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shared.DbContexts;
 
-namespace TrainingStore.Infrastructure;
+namespace TrainingStore.Infrastructure.Data;
 
 public sealed class TrainingDbContext : DbContext, IUnitOfWork
 {

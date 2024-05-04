@@ -1,6 +1,4 @@
-﻿using Shared.DataGrids;
-
-namespace TrainingStore.Domain.Teachers;
+﻿namespace TrainingStore.Domain.Teachers;
 
 public interface ITeacherRepository
 {

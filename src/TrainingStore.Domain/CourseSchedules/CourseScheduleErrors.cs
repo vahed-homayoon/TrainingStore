@@ -1,14 +1,14 @@
 ﻿using Shared.Results;
 
-namespace TrainingStore.Domain.Sessions;
+namespace TrainingStore.Domain.CourseSchedules;
 
-public static class SessionErrors
+public static class CourseScheduleErrors
 {
 	public static readonly Error DuplicateName = new(
-		"Session.DuplicateName",
+		"CourseSchedule.DuplicateName",
 		"1111111111");
 
 	public static readonly Error NotFound = new(
-		"Session.NotFound",
+		"CourseSchedule.NotFound",
 		"2222222222");
 }

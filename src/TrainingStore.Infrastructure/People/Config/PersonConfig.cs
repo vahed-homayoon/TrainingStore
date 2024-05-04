@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Shared.Common.Enums;
 using TrainingStore.Domain.People;
 using TrainingStore.Domain.Students;
 using TrainingStore.Domain.Teachers;
-using TrainingStore.Infrastructure.People.Enums;
 
 namespace TrainingStore.Infrastructure.People.Config;
 

@@ -1,6 +1,5 @@
 ﻿using Shared.DataGrids;
 using Shared.MediatR.Messaging;
-using Shared.Results;
 
 namespace TrainingStore.Application.Courses.GetCourseList;
 

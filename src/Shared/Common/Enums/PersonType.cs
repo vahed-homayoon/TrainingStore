@@ -1,4 +1,4 @@
-﻿namespace TrainingStore.Infrastructure.People.Enums;
+﻿namespace Shared.Common.Enums;
 
 public enum PersonType : byte
 {

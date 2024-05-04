@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using TrainingStore.Domain.Students;
+﻿using TrainingStore.Domain.Students;
 using TrainingStore.Infrastructure.Repository;
 
 namespace TrainingStore.Infrastructure.Students.Repository;

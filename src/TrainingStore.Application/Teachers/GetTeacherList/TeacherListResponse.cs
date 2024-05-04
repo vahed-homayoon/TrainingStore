@@ -5,6 +5,7 @@ public sealed record TeacherListResponse(
 	string NationalCode,
 	string FirstName,
 	string SureName,
+	string Phone,
 	string Email,
 	bool IsActive,
 	string? CreatedBy,

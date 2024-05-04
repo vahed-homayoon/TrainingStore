@@ -2,7 +2,6 @@
 using Shared.Data;
 using System.Data;
 
-
 namespace TrainingStore.Infrastructure.Data;
 
 internal sealed class SqlConnectionFactory : ISqlConnectionFactory

@@ -4,6 +4,7 @@ using Dapper;
 using Shared.DataGrids;
 using Shared.Data;
 using System.Data;
+using Shared.Common.Enums;
 
 namespace TrainingStore.Application.Students.GetStudentList;
 
@@ -27,15 +28,27 @@ internal sealed class GetStudentListQueryHandler
 			SELECT COUNT(Id)
 			FROM People
 			WHERE
-				Type= 'Student'
+				Type= @Type
 				AND (@NationalCode IS NULL OR NationalCode = @NationalCode)
 				AND (@FirstName IS NULL OR FirstName LIKE '%' + @FirstName + '%')
 				AND (@SureName IS NULL OR SureName LIKE '%' + @SureName + '%');
 
-			SELECT Id, NationalCode, FirstName, SureName, Email, IsActive, CreatedBy, CreatedDate, UpdatedBy, UpdatedDate
+			SELECT
+				Id,
+				NationalCode,
+				FirstName,
+				SureName,
+				BirthDate,
+				Phone,
+				Email,
+				IsActive,
+				CreatedBy,
+				CreatedDate,
+				UpdatedBy,
+				UpdatedDate
 			FROM People
 			WHERE 
-				Type = 'Student'
+				Type = @Type
 				AND (@NationalCode IS NULL OR NationalCode = @NationalCode)
 				AND (@FirstName IS NULL OR FirstName LIKE '%' + @FirstName + '%')
 				AND (@SureName IS NULL OR SureName LIKE '%' + @SureName + '%')
@@ -48,6 +61,7 @@ internal sealed class GetStudentListQueryHandler
 			sql,
 			new
 			{
+				Type = PersonType.Student,
 				request.NationalCode,
 				request.FirstName,
 				request.SureName,

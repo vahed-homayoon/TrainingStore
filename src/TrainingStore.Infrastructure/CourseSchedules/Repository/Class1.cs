@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TrainingStore.Infrastructure.Sessions.Repository
+namespace TrainingStore.Infrastructure.CourseSchedules.Repository
 {
-	internal class test
+	internal class Class1
 	{
 	}
 }

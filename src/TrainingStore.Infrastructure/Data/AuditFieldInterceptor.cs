@@ -21,10 +21,15 @@ public class AuditFieldInterceptor : SaveChangesInterceptor
 
 	private static void SetShadowProperties(DbContextEventData eventData)
 	{
-		var changeTracker = eventData.Context.ChangeTracker;
 		DateTime now = DateTime.Now;
 
-		foreach (var entry in changeTracker.Entries())
+		var entries = eventData
+			.Context
+			.ChangeTracker
+			.Entries()
+			.Where(m => !m.Metadata.IsOwned());
+
+		foreach (var entry in entries)
 		{
 			if (entry.State == EntityState.Added)
 			{

@@ -12,8 +12,8 @@ using TrainingStore.Infrastructure.Data;
 namespace TrainingStore.Infrastructure.Migrations
 {
     [DbContext(typeof(TrainingDbContext))]
-    [Migration("20240504200835_V2024_05_04_2338")]
-    partial class V2024_05_04_2338
+    [Migration("20240507115552_V2024_05_07_1525")]
+    partial class V2024_05_07_1525
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -152,17 +152,11 @@ namespace TrainingStore.Infrastructure.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<TimeSpan>("FromHour")
-                        .HasColumnType("time");
-
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("TeacherId")
                         .HasColumnType("int");
-
-                    b.Property<TimeSpan>("ToHour")
-                        .HasColumnType("time");
 
                     b.Property<string>("UpdatedBy")
                         .HasMaxLength(50)
@@ -216,7 +210,37 @@ namespace TrainingStore.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.OwnsMany("TrainingStore.Domain.TeacherCourses.CourseSchedule", "CourseSchedules", b1 =>
+                        {
+                            b1.Property<int>("TeacherCourseId")
+                                .HasColumnType("int");
+
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int");
+
+                            b1.Property<int>("Day")
+                                .HasColumnType("int");
+
+                            b1.Property<TimeSpan>("FromHour")
+                                .HasColumnType("time");
+
+                            b1.Property<TimeSpan>("ToHour")
+                                .HasColumnType("time");
+
+                            b1.HasKey("TeacherCourseId", "Id");
+
+                            b1.ToTable("TeacherCourses");
+
+                            b1.ToJson("CourseSchedules");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TeacherCourseId");
+                        });
+
                     b.Navigation("Course");
+
+                    b.Navigation("CourseSchedules");
 
                     b.Navigation("Teacher");
                 });

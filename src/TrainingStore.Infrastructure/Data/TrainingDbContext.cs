@@ -16,7 +16,11 @@ public sealed class TrainingDbContext : DbContext, IUnitOfWork
 	{
 		modelBuilder.ApplyConfigurationsFromAssembly(typeof(TrainingDbContext).Assembly);
 
-		foreach (var item in modelBuilder.Model.GetEntityTypes())
+		var entityTypes = modelBuilder.Model
+			.GetEntityTypes()
+			.Where(m => !m.IsOwned());
+
+		foreach (var item in entityTypes)
 		{
 			modelBuilder.Entity(item.ClrType)
 				.Property<string>("CreatedBy")

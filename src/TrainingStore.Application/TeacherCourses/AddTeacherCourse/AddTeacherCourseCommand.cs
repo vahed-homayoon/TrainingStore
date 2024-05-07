@@ -1,4 +1,5 @@
 ﻿using Shared.MediatR.Messaging;
+using TrainingStore.Domain.TeacherCourses;
 
 namespace TrainingStore.Application.TeacherCourses.AddTeacherCourse;
 
@@ -7,5 +8,4 @@ public sealed record AddTeacherCourseCommand(
 	int TeacherId,
 	DateTime StartDate,
 	DateTime EndDate,
-	TimeSpan FromHour,
-	TimeSpan ToHour) : ICommand;
+	List<CourseSchedule> CourseSchedules) : ICommand;

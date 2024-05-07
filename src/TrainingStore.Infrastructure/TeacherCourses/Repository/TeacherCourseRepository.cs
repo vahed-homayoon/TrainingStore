@@ -15,13 +15,11 @@ internal sealed class TeacherCourseRepository :
 	{
 	}
 
-	public async Task<bool> IsDuplicateName(
-		int id,
-		string nationalCode,
-		CancellationToken cancellationToken = default)
+	public async Task<dynamic> GetListAsync(CancellationToken cancellationToken = default)
 	{
 		return await DbContext
-			.Set<Person>()
-			.AnyAsync(person => person.Id != id && person.NationalCode == nationalCode, cancellationToken);
+			.Set<TeacherCourse>()
+			.Include(p=>p.Teacher)
+			.ToListAsync(cancellationToken);
 	}
 }

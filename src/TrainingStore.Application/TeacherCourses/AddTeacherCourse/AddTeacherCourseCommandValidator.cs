@@ -18,10 +18,7 @@ internal sealed class AddTeacherCourseCommandValidator : AbstractValidator<AddTe
 		RuleFor(c => c.EndDate)
 			.NotEmpty();
 
-		RuleFor(c => c.FromHour)
-			.NotEmpty();
-
-		RuleFor(c => c.ToHour)
+		RuleFor(c => c.CourseSchedules)
 			.NotEmpty();
 	}
 }

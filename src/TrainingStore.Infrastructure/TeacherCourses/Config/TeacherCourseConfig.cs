@@ -30,11 +30,7 @@ internal sealed class TeacherCourseConfig : IEntityTypeConfiguration<TeacherCour
 			.IsRequired();
 
 		builder
-			.Property(cs => cs.FromHour)
-			.IsRequired();
-
-		builder
-			.Property(cs => cs.ToHour)
-			.IsRequired();
+			.OwnsMany(m => m.CourseSchedules)
+			.ToJson();
 	}
 }

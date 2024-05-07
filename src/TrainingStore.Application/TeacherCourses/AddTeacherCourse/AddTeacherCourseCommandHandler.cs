@@ -23,15 +23,16 @@ internal sealed class AddTeacherCourseCommandHandler : ICommandHandler<AddTeache
 		CancellationToken cancellationToken)
 	{
 
-		var course = TeacherCourse.Create(
+		var ff = await _teacherCourseRepository.GetListAsync(cancellationToken);
+
+		var teacherCourse = TeacherCourse.Create(
 			request.CourseId,
 			request.TeacherId,
 			request.StartDate,
 			request.EndDate,
-			request.FromHour,
-			request.ToHour);
+			request.CourseSchedules);
 
-		_teacherCourseRepository.Add(course);
+		_teacherCourseRepository.Add(teacherCourse);
 
 		await _unitOfWork.SaveChangesAsync(cancellationToken);
 

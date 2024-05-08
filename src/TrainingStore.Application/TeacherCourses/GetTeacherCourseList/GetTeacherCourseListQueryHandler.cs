@@ -4,6 +4,7 @@ using Dapper;
 using Shared.DataGrids;
 using Shared.Data;
 using System.Data;
+using Shared.Common.Enums;
 
 namespace TrainingStore.Application.TeacherCourses.GetTeacherCourseList;
 
@@ -23,25 +24,36 @@ internal sealed class GetTeacherCourseListQueryHandler
 	{
 		using IDbConnection connection = _sqlConnectionFactory.CreateConnection();
 
-
-		//WHERE
-		//		Type = @Type
-		//		AND(@NationalCode IS NULL OR NationalCode = @NationalCode)
-		//		AND(@FirstName IS NULL OR FirstName LIKE '%' + @FirstName + '%')
-		//		AND(@SureName IS NULL OR SureName LIKE '%' + @SureName + '%')
-
 		const string sql = """
 			SELECT COUNT(Id)
-			FROM TeacherCourses;
+			FROM TeacherCourses
+			WHERE
+				(@CourseId IS NULL OR CourseId = @CourseId)
+				AND(@TeacherId IS NULL OR TeacherId = @TeacherId);
 
 			SELECT 
-				Id,
-				CreatedBy,
-				CreatedDate,
-				UpdatedBy,
-				UpdatedDate
-			FROM TeacherCourses
-			ORDER BY Id
+				tc.Id,
+				c.Name,
+				t.NationalCode,
+				t.FirstName,
+				t.SureName,
+				tc.StartDate,
+				tc.EndDate
+			FROM TeacherCourses AS tc
+			INNER JOIN(
+			SELECT 
+				p.Id, 
+				p.NationalCode,
+				p.FirstName, 
+				p.SureName
+			FROM People AS p
+			WHERE p.Type = @Type
+			) AS t ON tc.TeacherId = t.Id
+			INNER JOIN Courses AS c ON tc.CourseId = c.Id
+			WHERE
+			(@CourseId IS NULL OR CourseId = @CourseId)
+			AND(@TeacherId IS NULL OR TeacherId = @TeacherId)
+			ORDER BY tc.Id
 			OFFSET @PageSize * (@Page - 1) ROWS
 			FETCH NEXT @PageSize ROWS ONLY;
 		""";
@@ -50,9 +62,11 @@ internal sealed class GetTeacherCourseListQueryHandler
 			sql,
 			new
 			{
-				request.TeacherId,
+				Type = PersonType.Teacher,
 				request.PageSize,
-				request.Page
+				request.Page,
+				request.CourseId,
+				request.TeacherId
 			});
 
 		int totalCount = result.ReadSingle<int>();

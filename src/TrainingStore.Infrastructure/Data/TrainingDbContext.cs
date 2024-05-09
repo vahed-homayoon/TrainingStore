@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shared.DbContexts;
+using Shared.Entities;
 
 namespace TrainingStore.Infrastructure.Data;
 
@@ -9,38 +10,39 @@ public sealed class TrainingDbContext : DbContext, IUnitOfWork
 	DbContextOptions options)
 	: base(options)
 	{
-
 	}
 
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
 		modelBuilder.ApplyConfigurationsFromAssembly(typeof(TrainingDbContext).Assembly);
 
-		var entityTypes = modelBuilder.Model
+		var auditableEntities = modelBuilder.Model
 			.GetEntityTypes()
-			.Where(m => !m.IsOwned());
+			.Where(e => typeof(IAuditable)
+			.IsAssignableFrom(e.ClrType))
+			.ToList();
 
-		//foreach (var item in entityTypes)
-		//{
-		//	modelBuilder.Entity(item.ClrType)
-		//		.Property<string>("CreatedBy")
-		//		.IsRequired()
-		//		.HasMaxLength(50);
+		foreach (var item in auditableEntities)
+		{
+			modelBuilder.Entity(item.ClrType)
+				.Property<string>("CreatedBy")
+				.IsRequired()
+				.HasMaxLength(50);
 
-		//	modelBuilder
-		//		.Entity(item.ClrType)
-		//		.Property<DateTime>("CreatedDate")
-		//		.IsRequired();
+			modelBuilder
+				.Entity(item.ClrType)
+				.Property<DateTime>("CreatedDate")
+				.IsRequired();
 
-		//	modelBuilder
-		//		.Entity(item.ClrType)
-		//		.Property<string?>("UpdatedBy")
-		//		.HasMaxLength(50);
+			modelBuilder
+				.Entity(item.ClrType)
+				.Property<string?>("UpdatedBy")
+				.HasMaxLength(50);
 
-		//	modelBuilder
-		//		.Entity(item.ClrType)
-		//		.Property<DateTime?>("UpdatedDate");
-		//}
+			modelBuilder
+				.Entity(item.ClrType)
+				.Property<DateTime?>("UpdatedDate");
+		}
 
 		base.OnModelCreating(modelBuilder);
 	}

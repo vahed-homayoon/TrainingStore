@@ -2,7 +2,7 @@
 
 namespace TrainingStore.Domain.People;
 
-public abstract class Person : BaseEntity
+public abstract class Person : BaseEntity, IAuditable
 {
 	protected Person(
 		string nationalCode,

@@ -1,6 +1,4 @@
-﻿using Shared.DomainEvent;
-
-namespace Shared.Entities;
+﻿namespace Shared.Entities;
 
 public abstract class BaseEntity
 {

@@ -2,7 +2,7 @@
 
 namespace TrainingStore.Domain.Courses;
 
-public sealed class Course : BaseEntity
+public sealed class Course : BaseEntity, IAuditable
 {
 	private Course(
 		string name,

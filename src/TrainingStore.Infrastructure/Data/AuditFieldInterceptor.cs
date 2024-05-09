@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Newtonsoft.Json;
-using Shared.DomainEvent;
 using Shared.Entities;
 using Shared.Outbox;
 
@@ -31,25 +31,24 @@ public class AuditFieldInterceptor : SaveChangesInterceptor
 	{
 		DateTime now = DateTime.Now;
 
-		var entries = eventData
-			.Context
-			.ChangeTracker
+		var auditableEntities = eventData.Context.ChangeTracker
 			.Entries()
-			.Where(m => !m.Metadata.IsOwned());
+			.Where(m => m.Entity is IAuditable)
+			.ToList();
 
-		//foreach (var entry in entries)
-		//{
-		//	if (entry.State == EntityState.Added)
-		//	{
-		//		entry.Property("CreatedBy").CurrentValue = "";
-		//		entry.Property("CreatedDate").CurrentValue = now;
-		//	}
-		//	else if (entry.State == EntityState.Modified)
-		//	{
-		//		entry.Property("UpdatedBy").CurrentValue = "";
-		//		entry.Property("UpdatedDate").CurrentValue = now;
-		//	}
-		//}
+		foreach (var entry in auditableEntities)
+		{
+			if (entry.State == EntityState.Added)
+			{
+				entry.Property("CreatedBy").CurrentValue = "";
+				entry.Property("CreatedDate").CurrentValue = now;
+			}
+			else if (entry.State == EntityState.Modified)
+			{
+				entry.Property("UpdatedBy").CurrentValue = "";
+				entry.Property("UpdatedDate").CurrentValue = now;
+			}
+		}
 	}
 
 	private void AddDomainEventsAsOutboxMessages(DbContextEventData eventData)

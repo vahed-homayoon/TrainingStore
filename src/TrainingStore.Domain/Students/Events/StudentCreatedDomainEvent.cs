@@ -1,4 +1,4 @@
-﻿using Shared.DomainEvent;
+﻿using Shared.Entities;
 
 namespace TrainingStore.Domain.Students.Events;
 

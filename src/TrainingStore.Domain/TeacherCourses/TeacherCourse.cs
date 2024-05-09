@@ -4,7 +4,7 @@ using TrainingStore.Domain.Teachers;
 
 namespace TrainingStore.Domain.TeacherCourses;
 
-public sealed class TeacherCourse : BaseEntity
+public sealed class TeacherCourse : BaseEntity, IAuditable
 {
 	private TeacherCourse() { }
 

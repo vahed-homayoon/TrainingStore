@@ -6,7 +6,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Quartz;
 using Shared.Data;
-using Shared.DomainEvent;
+using Shared.Entities;
 
 namespace Shared.Outbox;
 

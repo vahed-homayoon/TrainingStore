@@ -1,4 +1,5 @@
-﻿using TrainingStore.Domain.Students;
+﻿using Microsoft.EntityFrameworkCore;
+using TrainingStore.Domain.Students;
 using TrainingStore.Infrastructure.Data;
 using TrainingStore.Infrastructure.GenericRepository;
 
@@ -11,5 +12,12 @@ internal sealed class StudentRepository :
 	public StudentRepository(TrainingDbContext dbContext) :
 		base(dbContext)
 	{
+	}
+
+	public async Task<Student?> GetByNationalCodeAsync(string nationalCode, CancellationToken cancellationToken = default)
+	{
+		return await DbContext
+			.Set<Student>()
+			.FirstOrDefaultAsync(person => person.NationalCode == nationalCode, cancellationToken);
 	}
 }

@@ -20,27 +20,27 @@ public sealed class TrainingDbContext : DbContext, IUnitOfWork
 			.GetEntityTypes()
 			.Where(m => !m.IsOwned());
 
-		foreach (var item in entityTypes)
-		{
-			modelBuilder.Entity(item.ClrType)
-				.Property<string>("CreatedBy")
-				.IsRequired()
-				.HasMaxLength(50);
+		//foreach (var item in entityTypes)
+		//{
+		//	modelBuilder.Entity(item.ClrType)
+		//		.Property<string>("CreatedBy")
+		//		.IsRequired()
+		//		.HasMaxLength(50);
 
-			modelBuilder
-				.Entity(item.ClrType)
-				.Property<DateTime>("CreatedDate")
-				.IsRequired();
+		//	modelBuilder
+		//		.Entity(item.ClrType)
+		//		.Property<DateTime>("CreatedDate")
+		//		.IsRequired();
 
-			modelBuilder
-				.Entity(item.ClrType)
-				.Property<string?>("UpdatedBy")
-				.HasMaxLength(50);
+		//	modelBuilder
+		//		.Entity(item.ClrType)
+		//		.Property<string?>("UpdatedBy")
+		//		.HasMaxLength(50);
 
-			modelBuilder
-				.Entity(item.ClrType)
-				.Property<DateTime?>("UpdatedDate");
-		}
+		//	modelBuilder
+		//		.Entity(item.ClrType)
+		//		.Property<DateTime?>("UpdatedDate");
+		//}
 
 		base.OnModelCreating(modelBuilder);
 	}

@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Quartz;
 using Shared.Data;
 using Shared.DbContexts;
+using Shared.Email;
+using Shared.Outbox;
 using TrainingStore.Domain.Courses;
 using TrainingStore.Domain.People;
 using TrainingStore.Domain.Students;
@@ -10,10 +12,12 @@ using TrainingStore.Domain.TeacherCourses;
 using TrainingStore.Domain.Teachers;
 using TrainingStore.Infrastructure.Courses.Repository;
 using TrainingStore.Infrastructure.Data;
+using TrainingStore.Infrastructure.Email;
 using TrainingStore.Infrastructure.People.Repository;
 using TrainingStore.Infrastructure.Students.Repository;
 using TrainingStore.Infrastructure.TeacherCourses.Repository;
 using TrainingStore.Infrastructure.Teachers.Repository;
+using Microsoft.Extensions.Configuration;
 
 namespace TrainingStore.Infrastructure;
 
@@ -21,9 +25,13 @@ public static class DependencyInjection
 {
 	public static IServiceCollection AddInfrastructure(
 		this IServiceCollection services,
-		IConfiguration configuration)
+		Microsoft.Extensions.Configuration.IConfiguration configuration)
 	{
+		services.AddTransient<IEmailService, EmailService>();
+
 		AddPersistence(services, configuration);
+
+		AddBackgroundJobs(services, configuration);
 
 		return services;
 	}
@@ -47,5 +55,15 @@ public static class DependencyInjection
 
 		services.AddSingleton<ISqlConnectionFactory>(_ =>
 			new SqlConnectionFactory(connectionString));
+	}
+	private static void AddBackgroundJobs(IServiceCollection services, IConfiguration configuration)
+	{
+		//services.Configure<OutboxOptions>(m=>configuration.GetSection("Outbox"));
+
+		services.AddQuartz();
+
+		services.AddQuartzHostedService(options => options.WaitForJobsToComplete = true);
+
+		services.ConfigureOptions<ProcessOutboxMessagesJobSetup>();
 	}
 }

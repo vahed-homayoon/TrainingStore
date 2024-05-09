@@ -1,4 +1,5 @@
 ﻿using TrainingStore.Domain.People;
+using TrainingStore.Domain.Students.Events;
 
 namespace TrainingStore.Domain.Students;
 
@@ -21,6 +22,8 @@ public sealed class Student : Person
 	public static Student Create(string nationalCode, string firstName, string sureName, DateTime birthDate, string phone, string email)
 	{
 		var student = new Student(nationalCode, firstName, sureName, birthDate, phone, email);
+
+		student.RaiseDomainEvent(new StudentCreatedDomainEvent(nationalCode));
 
 		return student;
 	}

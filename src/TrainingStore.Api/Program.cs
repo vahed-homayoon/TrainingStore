@@ -2,7 +2,7 @@ using TrainingStore.Api.Extensions;
 using TrainingStore.Application;
 using TrainingStore.Infrastructure;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 

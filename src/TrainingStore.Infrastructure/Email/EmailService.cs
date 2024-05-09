@@ -1,5 +1,6 @@
 ﻿using MailKit.Net.Smtp;
 using MailKit.Security;
+using Microsoft.Extensions.Options;
 using MimeKit;
 using Shared.Email;
 
@@ -7,6 +8,13 @@ namespace TrainingStore.Infrastructure.Email;
 
 internal sealed class EmailService : IEmailService
 {
+	private readonly MailSettingOptions _mailSettingOptions;
+
+	public EmailService(IOptions<MailSettingOptions> mailSettingOptions)
+	{
+		_mailSettingOptions = mailSettingOptions.Value;
+	}
+
 	public async Task SendWelcomeEmailAsync(string fullName, string email, CancellationToken cancellationToken)
 	{
 		var body = $"""
@@ -43,12 +51,12 @@ internal sealed class EmailService : IEmailService
 		await SendEmailAsync(fullName, subject, body, cancellationToken);
 	}
 
-	private static async Task SendEmailAsync(string recipient, string subject, string body, CancellationToken cancellationToken = default)
+	private async Task SendEmailAsync(string recipient, string subject, string body, CancellationToken cancellationToken = default)
 	{
 		try
 		{
 			var message = new MimeMessage();
-			message.From.Add(new MailboxAddress("آموزشگاه", "mailtrap@demomailtrap.com"));
+			message.From.Add(new MailboxAddress(_mailSettingOptions.SenderName, _mailSettingOptions.SenderEmail));
 			message.To.Add(new MailboxAddress(recipient, "vahed.homayoon67@gmail.com"));
 			message.Subject = subject;
 			message.Body = new TextPart("html")
@@ -57,8 +65,8 @@ internal sealed class EmailService : IEmailService
 			};
 
 			using var client = new SmtpClient();
-			client.Connect("live.smtp.mailtrap.io", 587, SecureSocketOptions.StartTls, cancellationToken);
-			client.Authenticate("api", "3924711b43e03cc4cbc766b9da1e393e", cancellationToken);
+			client.Connect(_mailSettingOptions.Server, _mailSettingOptions.Port, SecureSocketOptions.StartTls, cancellationToken);
+			client.Authenticate(_mailSettingOptions.UserName, _mailSettingOptions.Password, cancellationToken);
 
 			await client.SendAsync(message);
 		}

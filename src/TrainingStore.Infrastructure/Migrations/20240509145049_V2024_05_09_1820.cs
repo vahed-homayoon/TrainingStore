@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TrainingStore.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class V2024_05_08_1038 : Migration
+    public partial class V2024_05_09_1820 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -27,7 +27,7 @@ namespace TrainingStore.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "outbox_messages",
+                name: "OutboxMessages",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -39,7 +39,7 @@ namespace TrainingStore.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_outbox_messages", x => x.Id);
+                    table.PrimaryKey("PK_OutboxMessages", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -107,7 +107,7 @@ namespace TrainingStore.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "outbox_messages");
+                name: "OutboxMessages");
 
             migrationBuilder.DropTable(
                 name: "TeacherCourses");

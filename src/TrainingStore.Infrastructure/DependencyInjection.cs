@@ -25,11 +25,11 @@ public static class DependencyInjection
 {
 	public static IServiceCollection AddInfrastructure(
 		this IServiceCollection services,
-		Microsoft.Extensions.Configuration.IConfiguration configuration)
+		IConfiguration configuration)
 	{
-		services.AddTransient<IEmailService, EmailService>();
-
 		AddPersistence(services, configuration);
+
+		AddEmail(services, configuration);
 
 		AddBackgroundJobs(services, configuration);
 
@@ -58,12 +58,19 @@ public static class DependencyInjection
 	}
 	private static void AddBackgroundJobs(IServiceCollection services, IConfiguration configuration)
 	{
-		//services.Configure<OutboxOptions>(m=>configuration.GetSection("Outbox"));
+		services.Configure<OutboxOptions>(configuration.GetSection("Outbox"));
 
 		services.AddQuartz();
 
 		services.AddQuartzHostedService(options => options.WaitForJobsToComplete = true);
 
 		services.ConfigureOptions<ProcessOutboxMessagesJobSetup>();
+	}
+
+	private static void AddEmail(IServiceCollection services, IConfiguration configuration)
+	{
+		services.AddTransient<IEmailService, EmailService>();
+
+		services.Configure<MailSettingOptions>(configuration.GetSection("MailSettings"));
 	}
 }

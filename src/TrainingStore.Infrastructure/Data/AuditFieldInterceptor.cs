@@ -74,9 +74,6 @@ public class AuditFieldInterceptor : SaveChangesInterceptor
 				JsonConvert.SerializeObject(domainEvent, JsonSerializerSettings)))
 			.ToList();
 
-
-		int iii = 0;
-
 		eventData.Context.AddRange(outboxMessages);
 	}
 

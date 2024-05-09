@@ -12,8 +12,8 @@ using TrainingStore.Infrastructure.Data;
 namespace TrainingStore.Infrastructure.Migrations
 {
     [DbContext(typeof(TrainingDbContext))]
-    [Migration("20240508070850_V2024_05_08_1038")]
-    partial class V2024_05_08_1038
+    [Migration("20240509145049_V2024_05_09_1820")]
+    partial class V2024_05_09_1820
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,7 +50,7 @@ namespace TrainingStore.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("outbox_messages", (string)null);
+                    b.ToTable("OutboxMessages", (string)null);
                 });
 
             modelBuilder.Entity("TrainingStore.Domain.Courses.Course", b =>

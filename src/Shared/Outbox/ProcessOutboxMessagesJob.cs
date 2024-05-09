@@ -81,7 +81,7 @@ internal sealed class ProcessOutboxMessagesJob : IJob
 		//LIMIT { _outboxOptions.BatchSize}
 		string sql = $"""
                       SELECT id, content
-                      FROM outbox_messages
+                      FROM OutboxMessages
                       WHERE ProcessedOnUtc IS NULL
                       ORDER BY OccurredOnUtc
                       """;
@@ -100,7 +100,7 @@ internal sealed class ProcessOutboxMessagesJob : IJob
 		Exception? exception)
 	{
 		const string sql = @"
-            UPDATE outbox_messages
+            UPDATE OutboxMessages
             SET processedOnUtc = @ProcessedOnUtc,
                 error = @Error
             WHERE id = @Id";

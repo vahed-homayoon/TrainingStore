@@ -22,7 +22,8 @@ public sealed class ProcessOutboxMessagesJobSetup : IConfigureOptions<QuartzOpti
 				configure
 					.ForJob(jobName)
 					.WithSimpleSchedule(schedule =>
-					schedule.WithIntervalInSeconds(10).RepeatForever()));
-					//schedule.WithIntervalInSeconds(_outboxOptions.IntervalInSeconds).RepeatForever()));
+						schedule
+							.WithIntervalInSeconds(_outboxOptions.IntervalInSeconds)
+							.RepeatForever()));
 	}
 }

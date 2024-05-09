@@ -47,7 +47,7 @@ namespace TrainingStore.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("outbox_messages", (string)null);
+                    b.ToTable("OutboxMessages", (string)null);
                 });
 
             modelBuilder.Entity("TrainingStore.Domain.Courses.Course", b =>

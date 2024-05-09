@@ -1,7 +1,6 @@
 ﻿namespace Shared.Outbox;
 
 public sealed class OutboxMessage
-
 {
 	public OutboxMessage(Guid id, DateTime occurredOnUtc, string type, string content)
 	{

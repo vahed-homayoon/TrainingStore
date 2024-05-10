@@ -26,8 +26,7 @@ internal sealed class AddTeacherCommandHandler : ICommandHandler<AddTeacherComma
 		AddTeacherCommand request,
 		CancellationToken cancellationToken)
 	{
-		var isDuplicateNationalCode = await _personRepository.IsDuplicateNationalCode(0, request.NationalCode, cancellationToken);
-
+		var isDuplicateNationalCode = await _personRepository.IsDuplicateNationalCode(Guid.Empty, request.NationalCode, cancellationToken);
 		if (isDuplicateNationalCode)
 		{
 			return Result.Failure(TeacherErrors.DuplicateNationalCode);

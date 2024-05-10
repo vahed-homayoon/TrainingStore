@@ -1,6 +1,6 @@
 ﻿namespace TrainingStore.Application.Courses.GetCourseById;
 
 public sealed record CourseResponse(
-	int Id,
+	Guid Id,
 	string Name,
 	string Description);

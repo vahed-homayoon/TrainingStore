@@ -46,7 +46,7 @@ namespace TrainingStore.Api.Controllers.Students
 		}
 
 		[HttpDelete("{id:int}")]
-		public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
+		public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
 		{
 			var command = new DeleteStudentCommand(id);
 
@@ -56,7 +56,7 @@ namespace TrainingStore.Api.Controllers.Students
 		}
 
 		[HttpPatch("RevertStatus")]
-		public async Task<IActionResult> RevertStatus(int id, CancellationToken cancellationToken)
+		public async Task<IActionResult> RevertStatus(Guid id, CancellationToken cancellationToken)
 		{
 			var command = new RevertStudentStatusCommand(id);
 

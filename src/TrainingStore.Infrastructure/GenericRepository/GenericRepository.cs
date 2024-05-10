@@ -15,7 +15,7 @@ internal abstract class GenericRepository<T>
 	}
 
 	public async Task<T?> GetByIdAsync(
-		int id,
+		Guid id,
 		CancellationToken cancellationToken = default)
 	{
 		return await DbContext
@@ -26,7 +26,7 @@ internal abstract class GenericRepository<T>
 
 
 	public async Task<T?> FindByIdAsync(
-		int id,
+		Guid id,
 		CancellationToken cancellationToken = default)
 	{
 		return await DbContext

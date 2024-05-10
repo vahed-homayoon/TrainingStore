@@ -1,7 +1,7 @@
 ﻿namespace TrainingStore.Application.Courses.GetCourseList;
 
 public sealed record CourseListResponse(
-	int Id,
+	Guid Id,
 	string Name,
 	string Description,
 	bool IsActive,

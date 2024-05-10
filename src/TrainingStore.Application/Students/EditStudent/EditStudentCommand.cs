@@ -3,7 +3,7 @@
 namespace TrainingStore.Application.Students.EditStudent;
 
 public sealed record EditStudentCommand(
-	int Id,
+	Guid Id,
 	string NationalCode,
 	string FirstName,
 	string SureName,

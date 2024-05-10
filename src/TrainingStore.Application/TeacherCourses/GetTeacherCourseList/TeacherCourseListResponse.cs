@@ -1,7 +1,7 @@
 ﻿namespace TrainingStore.Application.TeacherCourses.GetTeacherCourseList;
 
 public sealed record TeacherCourseListResponse(
-	int Id,
+	Guid Id,
 	string Name,
 	string NationalCode,
 	string FirstName,

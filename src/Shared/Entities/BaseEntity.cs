@@ -4,7 +4,7 @@ public abstract class BaseEntity
 {
 	private readonly List<IDomainEvent> _domainEvents = new();
 
-	protected BaseEntity(int id)
+	protected BaseEntity(Guid id)
 	{
 		Id = id;
 	}
@@ -13,7 +13,7 @@ public abstract class BaseEntity
 	{
 	}
 
-	public int Id { get; init; }
+	public Guid Id { get; init; }
 
 	public IReadOnlyList<IDomainEvent> GetDomainEvents()
 	{

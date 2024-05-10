@@ -2,4 +2,4 @@
 
 namespace TrainingStore.Domain.Students.Events;
 
-public sealed record StudentCreatedDomainEvent(string NationalCode) : IDomainEvent;
+public sealed record StudentCreatedDomainEvent(Guid Id) : IDomainEvent;

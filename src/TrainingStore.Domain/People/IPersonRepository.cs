@@ -2,5 +2,5 @@
 
 public interface IPersonRepository
 {
-	Task<bool> IsDuplicateNationalCode(int id, string name, CancellationToken cancellationToken = default);
+	Task<bool> IsDuplicateNationalCode(Guid id, string name, CancellationToken cancellationToken = default);
 }

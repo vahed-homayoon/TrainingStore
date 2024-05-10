@@ -45,8 +45,8 @@ namespace TrainingStore.Api.Controllers.Teachers
 			return ResponseResult(result);
 		}
 
-		[HttpDelete("{id:int}")]
-		public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
+		[HttpDelete("{id:Guid}")]
+		public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
 		{
 			var command = new DeleteTeacherCommand(id);
 
@@ -56,7 +56,7 @@ namespace TrainingStore.Api.Controllers.Teachers
 		}
 
 		[HttpPatch("RevertStatus")]
-		public async Task<IActionResult> RevertStatus(int id, CancellationToken cancellationToken)
+		public async Task<IActionResult> RevertStatus(Guid id, CancellationToken cancellationToken)
 		{
 			var command = new RevertTeacherStatusCommand(id);
 

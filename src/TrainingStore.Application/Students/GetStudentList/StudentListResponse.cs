@@ -3,7 +3,7 @@
 namespace TrainingStore.Application.Students.GetStudentList;
 
 public sealed record StudentListResponse(
-	int Id,
+	Guid Id,
 	string NationalCode,
 	string FirstName,
 	string SureName,
@@ -11,7 +11,7 @@ public sealed record StudentListResponse(
 	string Phone,
 	string Email,
 	bool IsActive,
-	string? CreatedBy,
-	DateTime? CreatedDate,
+	string CreatedBy,
+	DateTime CreatedDate,
 	string? UpdatedBy,
 	DateTime? UpdatedDate);

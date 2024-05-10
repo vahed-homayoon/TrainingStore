@@ -5,14 +5,19 @@ namespace TrainingStore.Domain.Students;
 
 public sealed class Student : Person
 {
+	private Student() 
+	{
+	}
+
 	private Student(
+		Guid id,
 		string nationalCode,
 		string firstName,
 		string sureName,
 		DateTime birthDate,
 		string phone,
 		string email) :
-			base(nationalCode, firstName, sureName, phone, email)
+			base(id, nationalCode, firstName, sureName, phone, email)
 	{
 		BirthDate = birthDate;
 	}
@@ -21,9 +26,12 @@ public sealed class Student : Person
 
 	public static Student Create(string nationalCode, string firstName, string sureName, DateTime birthDate, string phone, string email)
 	{
-		var student = new Student(nationalCode, firstName, sureName, birthDate, phone, email);
+		var student = new Student(Guid.NewGuid(), nationalCode, firstName, sureName, birthDate, phone, email);
 
-		student.RaiseDomainEvent(new StudentCreatedDomainEvent(nationalCode));
+		if (email is not null)
+		{
+			student.RaiseDomainEvent(new StudentCreatedDomainEvent(student.Id));
+		}
 
 		return student;
 	}

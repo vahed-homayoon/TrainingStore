@@ -15,7 +15,7 @@ internal sealed class PersonRepository :
 	}
 
 	public async Task<bool> IsDuplicateNationalCode(
-		int id,
+		Guid id,
 		string nationalCode,
 		CancellationToken cancellationToken = default)
 	{

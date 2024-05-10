@@ -2,11 +2,9 @@
 
 public interface IStudentRepository
 {
-	Task<Student?> GetByIdAsync(int id, CancellationToken cancellationToken = default);
+	Task<Student?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
 	
-	Task<Student?> GetByNationalCodeAsync(string nationalCode, CancellationToken cancellationToken = default);
-
-	Task<Student?> FindByIdAsync(int id, CancellationToken cancellationToken = default);
+	Task<Student?> FindByIdAsync(Guid id, CancellationToken cancellationToken = default);
 
 	void Add(Student course);
 

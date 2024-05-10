@@ -13,11 +13,4 @@ internal sealed class StudentRepository :
 		base(dbContext)
 	{
 	}
-
-	public async Task<Student?> GetByNationalCodeAsync(string nationalCode, CancellationToken cancellationToken = default)
-	{
-		return await DbContext
-			.Set<Student>()
-			.FirstOrDefaultAsync(person => person.NationalCode == nationalCode, cancellationToken);
-	}
 }

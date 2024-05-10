@@ -15,7 +15,7 @@ internal sealed class CourseRepository :
 	}
 
 	public async Task<bool> IsDuplicateName(
-		int id,
+		Guid id,
 		string name,
 		CancellationToken cancellationToken = default)
 	{

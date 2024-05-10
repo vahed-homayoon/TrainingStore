@@ -2,4 +2,4 @@
 
 namespace TrainingStore.Application.Students.RevertStudentStatus;
 
-public sealed record RevertStudentStatusCommand(int Id) : ICommand;
+public sealed record RevertStudentStatusCommand(Guid Id) : ICommand;

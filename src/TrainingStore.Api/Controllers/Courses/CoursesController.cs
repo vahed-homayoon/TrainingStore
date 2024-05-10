@@ -30,8 +30,8 @@ namespace TrainingStore.Api.Controllers.Courses
 			return ResponseResult(result);
 		}
 
-		[HttpGet("{id:int}")]
-		public async Task<IActionResult> GetById(int id, CancellationToken cancellationToken)
+		[HttpGet("{id:Guid}")]
+		public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
 		{
 			var query = new GetCourseByIdQuery(id);
 
@@ -56,8 +56,8 @@ namespace TrainingStore.Api.Controllers.Courses
 			return ResponseResult(result);
 		}
 
-		[HttpDelete("{id:int}")]
-		public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
+		[HttpDelete("{id:Guid}")]
+		public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
 		{
 			var command = new DeleteCourseCommand(id);
 
@@ -67,7 +67,7 @@ namespace TrainingStore.Api.Controllers.Courses
 		}
 
 		[HttpPatch("RevertStatus")]
-		public async Task<IActionResult> RevertStatus(int id, CancellationToken cancellationToken)
+		public async Task<IActionResult> RevertStatus(Guid id, CancellationToken cancellationToken)
 		{
 			var command = new RevertCourseStatusCommand(id);
 

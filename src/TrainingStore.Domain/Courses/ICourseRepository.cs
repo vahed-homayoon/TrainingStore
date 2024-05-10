@@ -2,11 +2,11 @@
 
 public interface ICourseRepository
 {
-	Task<Course?> GetByIdAsync(int id, CancellationToken cancellationToken = default);
+	Task<Course?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
 
-	Task<Course?> FindByIdAsync(int id, CancellationToken cancellationToken = default);
+	Task<Course?> FindByIdAsync(Guid id, CancellationToken cancellationToken = default);
 
-	Task<bool> IsDuplicateName(int id, string name, CancellationToken cancellationToken = default);
+	Task<bool> IsDuplicateName(Guid id, string name, CancellationToken cancellationToken = default);
 
 	void Add(Course course);
 

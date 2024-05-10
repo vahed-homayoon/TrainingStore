@@ -2,4 +2,4 @@
 
 namespace TrainingStore.Application.Teachers.DeleteTeacher;
 
-public sealed record DeleteTeacherCommand(int Id) : ICommand;
+public sealed record DeleteTeacherCommand(Guid Id) : ICommand;

@@ -7,6 +7,6 @@ public sealed class GetTeacherCourseListQuery :
 	DataGridRequest,
 	IQuery<DataGridResponse<TeacherCourseListResponse>>
 {
-	public int? CourseId { get; set; }
+	public Guid? CourseId { get; set; }
 	public int? TeacherId { get; set; }
 }

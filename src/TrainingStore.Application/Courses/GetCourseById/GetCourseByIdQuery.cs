@@ -2,4 +2,4 @@
 
 namespace TrainingStore.Application.Courses.GetCourseById;
 
-public sealed record GetCourseByIdQuery(int Id) : IQuery<CourseResponse>;
+public sealed record GetCourseByIdQuery(Guid Id) : IQuery<CourseResponse>;

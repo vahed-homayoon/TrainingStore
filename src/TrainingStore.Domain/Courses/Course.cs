@@ -4,9 +4,15 @@ namespace TrainingStore.Domain.Courses;
 
 public sealed class Course : BaseEntity, IAuditable
 {
+	private Course()
+	{
+	}
+
 	private Course(
+		Guid id,
 		string name,
-		string description)
+		string description) :
+			base(id)
 	{
 		Name = name;
 		Description = description;
@@ -19,7 +25,7 @@ public sealed class Course : BaseEntity, IAuditable
 
 	public static Course Create(string name, string description)
 	{
-		var course = new Course(name, description);
+		var course = new Course(Guid.NewGuid(), name, description);
 
 		return course;
 	}

@@ -6,14 +6,18 @@ namespace TrainingStore.Domain.TeacherCourses;
 
 public sealed class TeacherCourse : BaseEntity, IAuditable
 {
-	private TeacherCourse() { }
+	private TeacherCourse() 
+	{ 
+	}
 
 	private TeacherCourse(
-		int courseId,
-		int teacherId,
+		Guid id,
+		Guid courseId,
+		Guid teacherId,
 		DateTime startDate,
 		DateTime endDate,
-		List<CourseSchedule> courseSchedules)
+		List<CourseSchedule> courseSchedules) :
+			base(id)
 	{
 		CourseId = courseId;
 		TeacherId = teacherId;
@@ -30,22 +34,22 @@ public sealed class TeacherCourse : BaseEntity, IAuditable
 
 	public IReadOnlyCollection<CourseSchedule> CourseSchedules => _courseSchedules.AsReadOnly();
 
-	public int CourseId { get; private set; }
+	public Guid CourseId { get; private set; }
 
 	public Course Course { get; private set; }
 
-	public int TeacherId { get; private set; }
+	public Guid TeacherId { get; private set; }
 
 	public Teacher Teacher { get; private set; }
 
-	public static TeacherCourse Create(int courseId, int teacherId, DateTime startDate, DateTime endDate, List<CourseSchedule> courseSchedules)
+	public static TeacherCourse Create(Guid courseId, Guid teacherId, DateTime startDate, DateTime endDate, List<CourseSchedule> courseSchedules)
 	{
-		var teacherCourse = new TeacherCourse(courseId, teacherId, startDate, endDate, courseSchedules);
+		var teacherCourse = new TeacherCourse(Guid.NewGuid(), courseId, teacherId, startDate, endDate, courseSchedules);
 
 		return teacherCourse;
 	}
 
-	public void Edit(int courseId, int teacherId, DateTime startDate, DateTime endDate, List<CourseSchedule> courseSchedules)
+	public void Edit(Guid courseId, Guid teacherId, DateTime startDate, DateTime endDate, List<CourseSchedule> courseSchedules)
 	{
 		CourseId = courseId;
 		TeacherId = teacherId;

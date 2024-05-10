@@ -20,7 +20,7 @@ internal sealed class StudentCreatedDomainEventHandler : INotificationHandler<St
 
 	public async Task Handle(StudentCreatedDomainEvent notification, CancellationToken cancellationToken)
 	{
-		Student? student = await _studentRepository.GetByNationalCodeAsync(notification.NationalCode, cancellationToken);
+		var student = await _studentRepository.GetByIdAsync(notification.Id, cancellationToken);
 		if (student?.Email is null)
 		{
 			return;

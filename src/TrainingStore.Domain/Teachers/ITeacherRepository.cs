@@ -2,9 +2,9 @@
 
 public interface ITeacherRepository
 {
-	Task<Teacher?> GetByIdAsync(int id, CancellationToken cancellationToken = default);
+	Task<Teacher?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
 
-	Task<Teacher?> FindByIdAsync(int id, CancellationToken cancellationToken = default);
+	Task<Teacher?> FindByIdAsync(Guid id, CancellationToken cancellationToken = default);
 
 	void Add(Teacher course);
 

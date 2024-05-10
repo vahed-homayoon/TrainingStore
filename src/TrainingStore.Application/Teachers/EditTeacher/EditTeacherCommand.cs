@@ -3,7 +3,7 @@
 namespace TrainingStore.Application.Teachers.EditTeacher;
 
 public sealed record EditTeacherCommand(
-	int Id,
+	Guid Id,
 	string NationalCode,
 	string FirstName,
 	string SureName,

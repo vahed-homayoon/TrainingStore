@@ -12,8 +12,8 @@ using TrainingStore.Infrastructure.Data;
 namespace TrainingStore.Infrastructure.Migrations
 {
     [DbContext(typeof(TrainingDbContext))]
-    [Migration("20240509154425_V2024_05_09_1914")]
-    partial class V2024_05_09_1914
+    [Migration("20240509161813_V2024_05_09_1948")]
+    partial class V2024_05_09_1948
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -55,11 +55,9 @@ namespace TrainingStore.Infrastructure.Migrations
 
             modelBuilder.Entity("TrainingStore.Domain.Courses.Course", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -96,11 +94,9 @@ namespace TrainingStore.Infrastructure.Migrations
 
             modelBuilder.Entity("TrainingStore.Domain.People.Person", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -160,14 +156,12 @@ namespace TrainingStore.Infrastructure.Migrations
 
             modelBuilder.Entity("TrainingStore.Domain.TeacherCourses.TeacherCourse", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CourseId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("CourseId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -183,8 +177,8 @@ namespace TrainingStore.Infrastructure.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("TeacherId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("TeacherId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("UpdatedBy")
                         .HasMaxLength(50)
@@ -240,8 +234,8 @@ namespace TrainingStore.Infrastructure.Migrations
 
                     b.OwnsMany("TrainingStore.Domain.TeacherCourses.CourseSchedule", "CourseSchedules", b1 =>
                         {
-                            b1.Property<int>("TeacherCourseId")
-                                .HasColumnType("int");
+                            b1.Property<Guid>("TeacherCourseId")
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<int>("Id")
                                 .ValueGeneratedOnAdd()

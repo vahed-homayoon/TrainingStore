@@ -4,12 +4,18 @@ namespace TrainingStore.Domain.People;
 
 public abstract class Person : BaseEntity, IAuditable
 {
+	protected Person()
+	{
+	}
+
 	protected Person(
+		Guid id,
 		string nationalCode,
 		string firstName,
 		string sureName,
 		string phone,
-		string? email)
+		string? email) :
+			base(id)
 	{
 		NationalCode = nationalCode;
 		FirstName = firstName;
@@ -29,7 +35,7 @@ public abstract class Person : BaseEntity, IAuditable
 
 	public string? Email { get; private set; }
 
-    public bool IsActive { get; private set; }
+	public bool IsActive { get; private set; }
 
 	public void Edit(string nationalCode, string firstName, string sureName, string phone, string email)
 	{

@@ -5,7 +5,7 @@ public sealed record CourseListResponse(
 	string Name,
 	string Description,
 	bool IsActive,
-	string? CreatedBy,
-	DateTime? CreatedDate,
+	string CreatedBy,
+	DateTime CreatedDate,
 	string? UpdatedBy,
 	DateTime? UpdatedDate);

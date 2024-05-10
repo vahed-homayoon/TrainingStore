@@ -8,7 +8,7 @@ public sealed record TeacherListResponse(
 	string Phone,
 	string Email,
 	bool IsActive,
-	string? CreatedBy,
-	DateTime? CreatedDate,
+	string CreatedBy,
+	DateTime CreatedDate,
 	string? UpdatedBy,
 	DateTime? UpdatedDate);
